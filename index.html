@@ -1,125 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Nossa Escola</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos básicos corrigidos */
 
-<meta name="viewport" content="width=device-width, initial-
-scale=1.0">
+        /* Estilo do cabeçalho */
+        .cabecalho-itens {
+            text-align: center;
+            margin: 20px 0;
+        }
 
-<title>Home | Nossa Escola</title>
-<link rel="stylesheet" href="style.css">
+        .cabecalho_imagem {
+            width: 120px; /* Ajuste do tamanho do logo */
+            height: auto;
+        }
+
+        .titulo_site {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        /* Redes sociais */
+        .sociais {
+            display: flex;
+            justify-content: center; /* Centraliza os ícones */
+            gap: 15px; /* Espaço entre os ícones */
+            margin: 10px 0;
+        }
+
+        .sociais img {
+            width: 40px; /* Largura dos ícones */
+            height: 40px; /* Altura dos ícones */
+            transition: transform 0.3s ease; /* Animação ao passar o mouse */
+        }
+
+        .sociais img:hover {
+            transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
+        }
+
+        /* Seção Banner */
+        .banner1 img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Seção Estudantes */
+        .estudante {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .estudante_titulo {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .estudantes_todos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .estudante-div {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .estudante-imagem {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .estudante-nome {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .estudante-icone {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .estudante-icone:hover {
+            transform: scale(1.2);
+        }
+
+        /* Rodapé */
+        footer.escola {
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .logo_rodape {
+            width: 100px;
+            height: auto;
+        }
+
+        .escola-título {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .link {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<!--header é a parte do cabeçalho do site, é o topo da página-->
-<header class="cabecalho-itens">
+    <!-- Cabeçalho -->
+    <header class="cabecalho-itens">
+        <img class="cabecalho_imagem" src="logo_nossa_escola.png" alt="Logo da Página">
+        <h1 class="titulo_site">Nossa Escola</h1>
+        <div class="sociais">
+            <a href="https://wa.me/5541999999999" target="_blank">
+                <img src="zapata.png" alt="WhatsApp da Escola">
+            </a>
+            <a href="https://www.facebook.com/colegioszymanski?mibextid=ZbWKwL" target="_blank">
+                <img src="face.png" alt="Facebook da Escola">
+            </a>
+            <a href="https://www.instagram.com/colegiojulioszymanski/" target="_blank">
+                <img src="insta.png" alt="Instagram da Escola">
+            </a>
+        </div>
+    </header>
 
-<img class="cabecalho_imagem" src="logo_nossa_escola.png" alt="Logo da
+    <!-- Banner -->
+    <section class="banner1">
+        <img src="bannerescola.jpg" alt="Banner da Escola">
+    </section>
 
-Página">
+    <!-- Seção Estudantes -->
+    <section class="estudante">
+        <h1 class="estudante_titulo">Alunos em Destaque 2024</h1>
+        <div class="estudantes_todos">
+            <div class="estudante-div">
+                <img class="estudante-imagem" src="branquinha.jpeg" alt="Foto da Gaby">
+                <h3 class="estudante-nome">Gaby</h3>
+                <a href="https://cursos.alura.com.br/dashboard" target="_blank">
+                    <img class="estudante-icone" src="OIP.jpeg" alt="Site da Escola">
+                </a>
+                <img class="estudante-icone" src="insta.png" alt="Instagram">
+                <img class="estudante-icone" src="face.png" alt="Facebook">
+            </div>
+            <div class="estudante-div">
+                <img class="estudante-imagem" src="menino.png" alt="Foto do Gabriel">
+                <h3 class="estudante-nome">Gabriel</h3>
+                <a href="https://cursos.alura.com.br/dashboard" target="_blank">
+                    <img class="estudante-icone" src="OIP.jpeg" alt="Site da Escola">
+                </a>
+                <img class="estudante-icone" src="insta.png" alt="Instagram">
+                <img class="estudante-icone" src="face.png" alt="Facebook">
+            </div>
+        </div>
+    </section>
 
-<h1 class="titulo_site">Nossa Escola</h1>
-<div class="sociais">
-<a href="https://wa.me/5541999999999" target="_blank">
-    <img class="sociais" src="zapata.png" alt="Logo do Whats da Escola">
-</a>
-<a href="https://www.facebook.com/colegioszymanski?mibextid=ZbWKwL" target="_blank">
-    <img class="sociais" src="face.png" alt="Facebook da Escola">
-</a>
-<a href="https://www.instagram.com/colegiojulioszymanski/" target="_blank">
-    <img class="sociais" src="insta.png" alt="instagram da Escola">
-</a>
-</div>
-</header>]
-    <!--Seção banner 1 é a parte do paragrafo 1 da página-->
-<section class="banner1">
-<img class="escola.image" src="bannerescola.jpg" alt="Banner
-da Escola">
-</section>
-<!--Seção estudantes é a parte do paragrafo 2 da página-->
-<section class="estudante">
-<h1 class="estudante_titulo">Alunos em destaque 2024</h1>
-<p> </p>
-<div class="estudantes_todos">
-<div class="estudante-div">
-<img class="estudante-imagem" src="branquinha.jpeg" alt="Foto da
-
-turma do 1CDS do ano de 2023">
-
-<h3 class="estudante-nome">Gaby</h3>
-<a href="https://cursos.alura.com.br/dashboard">
-<p> </p>
-<img class="estudante-icone" src="OIP.jpeg" alt="link do site da escola"></a>
-
-<img class="estudante-icone" src="insta.png" alt="Link do Instagram">
-<img class="estudante-icone" src="face.png" alt="Link do Facebook">
-</div>
-<div class="estudante-div">
-<img class="estudante-imagem" src="menino.png" alt="Foto da
-turma do 1CDS do ano de 2023">
-
-<h3 class="estudante-nome">Gabriel</h3>
-<a href="https://cursos.alura.com.br/dashboard">
-<p> </p>
-<img class="estudante-icone" src="OIP.jpeg" alt="Link do Site da
-
-escola"></a>
-
-<img class="estudante-icone" src="insta.png" alt="Link do
-
-Instagram">
-
-<img class="estudante-icone" src="face.png" alt="Link do
-
-Facebook">
-</div>
-</div>
-</section>
-<!--Seção estudantes é a parte do paragrafo 3 da página-->
-<section class="estudante">
-<div class="estudantes_todos">
-<div class="estudante-div">
-<img class="estudante-imagem" src="morena.jpeg" alt="Foto da
-turma do 1CDS do ano de 2023">
-<h3 class="estudante-nome">Maria</h3>
-<a href="https://cursos.alura.com.br/dashboard">
-<p> </p>
-<img class="estudante-icone" src="OIP.jpeg" alt="Link do Site da
-escola"></a>
-<img class="estudante-icone" src="insta.png" alt="Link do Instagram">
-<img class="estudante-icone" src="face.png" alt="Link do Facebook">
-</div>
-<div class="estudante-div">
-<img class="estudante-imagem" src="menina.png"
-alt="Foto da turma do 1CDS do ano de 2023">
-<h3 class="estudante-nome">Julia</h3>
-<a href="https://cursos.alura.com.br/dashboard">
-<p> </p>
-<img class="estudante-icone" src="OIP.jpeg" alt="Link do
-
-Site da escola"></a>
-
-<img class="estudante-icone" src="insta.png" alt="Link do
-
-Instagram">
-<img class="estudante-icone" src="face.png" alt="Link do
-
-facebook">
-</div>
-</div>
-</section>
-<!--Seção rodapé é a parte final da paragrafo 3 da página-->
-<footer class="escola">
-<img class="logo_rodape" src="logo_nossa_escola.png" alt="Logo
-da Escola">
-<h2 class="escola-título">Mais informações entre em contato<a
-class="link" href="https://wa.me/5541999999999"> 41 9.9999-9999
-</a></h2>
-<p></p>
-<p>©2024 | Curso de ADS | Todos os Direitos Reservados.
-Política de Privacidade | Proteção de dados | Encarregado de
-
-dados</p>
-<p> </p>
-</footer>
+    <!-- Rodapé -->
+    <footer class="escola">
+        <img class="logo_rodape" src="logo_nossa_escola.png" alt="Logo da Escola">
+        <h2 class="escola-título">Mais informações entre em contato:
+            <a class="link" href="https://wa.me/5541999999999">41 9.9999-9999</a>
+        </h2>
+        <p>©2024 | Curso de ADS | Todos os Direitos Reservados.</p>
+    </footer>
 </body>
 </html>
