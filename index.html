@@ -9,8 +9,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            overflow-x: hidden; /* Evitar que a página tenha rolagem horizontal */
+            background-color: #f7f7f7;
+            overflow-x: hidden;
+            color: #333;
         }
 
         /* Canto superior */
@@ -19,8 +20,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: #333;
+            background-color: #2d2d2d;
             color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -29,69 +31,96 @@
 
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
         }
 
         .social-icons img {
             width: 30px;
-            margin-left: 10px;
+            margin-left: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.2);
         }
 
         /* Banner */
         .banner img {
             width: 100%;
             height: auto;
+            display: block;
+            border-radius: 8px;
         }
 
         /* Seção de texto */
         .text {
             text-align: center;
-            margin: 20px 0;
+            margin: 40px 0;
         }
 
         .text h2 {
-            font-size: 36px;
-            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 20px;
         }
 
         /* Imagens em linha */
         .images {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 30px;
             flex-wrap: wrap;
+            margin: 20px 0;
         }
 
-        .images img {
-            width: 200px;
-            height: auto;
+        .image-item {
+            width: 220px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        /* Links das imagens em linha */
+        .image-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 5px solid #f5f5f5;
+        }
+
         .image-links {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
+            justify-content: space-around;
+            margin: 10px 0;
         }
 
         .image-links img {
             width: 30px;
             height: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-links img:hover {
+            transform: scale(1.2);
         }
 
         /* Estilo para a área de rolagem */
         .scrollable-area {
-            min-height: 150vh; /* Garante que há uma área rolável */
+            min-height: 150vh;
             padding: 20px;
-            background-color: #f0f0f0;
+            background-color: #f7f7f7;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-
     </style>
 </head>
 <body>
@@ -114,7 +143,7 @@
 
     <!-- Texto abaixo do banner -->
     <div class="text">
-        <h2>Os 3 Melhores</h2>
+        <h2>Os 4 Melhores</h2>
     </div>
 
     <!-- Imagens em linha -->
@@ -123,9 +152,9 @@
         <div class="image-item">
             <img src="blo1.png" alt="Imagem 1">
             <div class="image-links">
-                <a href="https://www.roblox.com/users/1234567890/profile"><img src="guhblox1.png" alt="Roblox Messi"></a> <!-- Link para perfil do Messi no Roblox -->
-                <a href="https://www.instagram.com/messi"><img src="guhinsta1.png" alt="Instagram Messi"></a> <!-- Link para Instagram do Messi -->
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a> <!-- Link para o jogo Blox Fruits -->
+                <a href="https://www.roblox.com/users/1234567890/profile"><img src="guhblox1.png" alt="Roblox Messi"></a>
+                <a href="https://www.instagram.com/messi"><img src="guhinsta1.png" alt="Instagram Messi"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
             </div>
         </div>
 
@@ -133,9 +162,9 @@
         <div class="image-item">
             <img src="blo2.png" alt="Imagem 2">
             <div class="image-links">
-                <a href="https://www.roblox.com/users/9876543210/profile"><img src="guhblox1.png" alt="Roblox Ronaldo"></a> <!-- Link para qualquer perfil no Roblox -->
-                <a href="https://www.instagram.com/cristiano"><img src="guhinsta1.png" alt="Instagram Ronaldo"></a> <!-- Link para Instagram do Ronaldo -->
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a> <!-- Link para o jogo Blox Fruits -->
+                <a href="https://www.roblox.com/users/9876543210/profile"><img src="guhblox1.png" alt="Roblox Ronaldo"></a>
+                <a href="https://www.instagram.com/cristiano"><img src="guhinsta1.png" alt="Instagram Ronaldo"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
             </div>
         </div>
 
@@ -143,21 +172,19 @@
         <div class="image-item">
             <img src="blo3.png" alt="Imagem 3">
             <div class="image-links">
-                <a href="https://www.roblox.com/users/1122334455/profile"><img src="guhblox1.png" alt="Roblox Neymar"></a> <!-- Link para perfil do Neymar no Roblox -->
-                <a href="https://www.instagram.com/neymarjr"><img src="guhinsta1.png" alt="Instagram Neymar"></a> <!-- Link para Instagram do Neymar -->
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a> <!-- Link para o jogo Blox Fruits -->
+                <a href="https://www.roblox.com/users/1122334455/profile"><img src="guhblox1.png" alt="Roblox Neymar"></a>
+                <a href="https://www.instagram.com/neymarjr"><img src="guhinsta1.png" alt="Instagram Neymar"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
             </div>
         </div>
-    </div>
 
-    <!-- Quarta imagem (Pelé) -->
-    <div class="images">
+        <!-- Quarta imagem (Pelé) -->
         <div class="image-item">
             <img src="pelekkj.png" alt="Imagem 4">
             <div class="image-links">
-                <a href="https://www.roblox.com/users/5566778899/profile"><img src="guhblox1.png" alt="Roblox Pelé"></a> <!-- Link para perfil do Pelé no Roblox -->
-                <a href="https://www.instagram.com/pele"><img src="guhinsta1.png" alt="Instagram Pelé"></a> <!-- Link para Instagram do Pelé -->
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a> <!-- Link para o jogo Blox Fruits -->
+                <a href="https://www.roblox.com/users/5566778899/profile"><img src="guhblox1.png" alt="Roblox Pelé"></a>
+                <a href="https://www.instagram.com/pele"><img src="guhinsta1.png" alt="Instagram Pelé"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
             </div>
         </div>
     </div>
