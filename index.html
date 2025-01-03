@@ -6,7 +6,7 @@
     <title>Roblox dos Famosos</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f7f7f7;
@@ -46,14 +46,20 @@
         }
 
         /* Banner */
-        .banner img {
+        .banner {
             width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;
+            height: 500px; /* Tamanho ajustado para um banner maior */
+            overflow: hidden;
         }
 
-        /* Seção de texto */
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Seção de texto abaixo do banner */
         .text {
             text-align: center;
             margin: 40px 0;
@@ -66,7 +72,15 @@
             margin-bottom: 20px;
         }
 
-        /* Imagens em linha */
+        .text p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Estilo das imagens em linha */
         .images {
             display: flex;
             justify-content: center;
@@ -76,7 +90,7 @@
         }
 
         .image-item {
-            width: 220px;
+            width: 250px;
             border-radius: 10px;
             overflow: hidden;
             background-color: #fff;
@@ -121,6 +135,51 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* Seção "Aqui você entrará no Roblox dos melhores" */
+        .roblox-section {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 50px 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .roblox-section h3 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .roblox-section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roblox-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .roblox-icons a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .roblox-icons img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .roblox-icons a:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -141,12 +200,25 @@
         <img src="bannergaylol1.png" alt="Banner">
     </div>
 
-    <!-- Texto abaixo do banner -->
-    <div class="text">
-        <h2>Os 4 Melhores</h2>
+    <!-- Seção: Aqui você entrará no Roblox dos melhores -->
+    <div class="roblox-section">
+        <h3>Aqui você entrará no Roblox dos melhores</h3>
+        <p>Entre no perfil dos melhores jogadores e descubra o que eles estão fazendo no Roblox agora mesmo! Além disso, você pode seguir no Instagram e ver o que eles estão postando, ou acessar o servidor que eles estão jogando no Blox Fruits.</p>
+
+        <div class="roblox-icons">
+            <a href="https://www.roblox.com/users/1234567890/profile">
+                <img src="guhblox1.png" alt="Roblox Messi">
+            </a>
+            <a href="https://www.instagram.com/messi">
+                <img src="guhinsta1.png" alt="Instagram Messi">
+            </a>
+            <a href="https://www.robloxbloxfruits.com">
+                <img src="robloxphisi1.png" alt="Blox Fruits Messi">
+            </a>
+        </div>
     </div>
 
-    <!-- Imagens em linha -->
+    <!-- Imagens em linha (Jogadores) -->
     <div class="images">
         <!-- Primeira imagem (Messi) -->
         <div class="image-item">
@@ -154,7 +226,7 @@
             <div class="image-links">
                 <a href="https://www.roblox.com/users/1234567890/profile"><img src="guhblox1.png" alt="Roblox Messi"></a>
                 <a href="https://www.instagram.com/messi"><img src="guhinsta1.png" alt="Instagram Messi"></a>
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits Messi"></a>
             </div>
         </div>
 
@@ -164,7 +236,7 @@
             <div class="image-links">
                 <a href="https://www.roblox.com/users/9876543210/profile"><img src="guhblox1.png" alt="Roblox Ronaldo"></a>
                 <a href="https://www.instagram.com/cristiano"><img src="guhinsta1.png" alt="Instagram Ronaldo"></a>
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits Ronaldo"></a>
             </div>
         </div>
 
@@ -174,17 +246,7 @@
             <div class="image-links">
                 <a href="https://www.roblox.com/users/1122334455/profile"><img src="guhblox1.png" alt="Roblox Neymar"></a>
                 <a href="https://www.instagram.com/neymarjr"><img src="guhinsta1.png" alt="Instagram Neymar"></a>
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
-            </div>
-        </div>
-
-        <!-- Quarta imagem (Pelé) -->
-        <div class="image-item">
-            <img src="pelekkj.png" alt="Imagem 4">
-            <div class="image-links">
-                <a href="https://www.roblox.com/users/5566778899/profile"><img src="guhblox1.png" alt="Roblox Pelé"></a>
-                <a href="https://www.instagram.com/pele"><img src="guhinsta1.png" alt="Instagram Pelé"></a>
-                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits"></a>
+                <a href="https://www.robloxbloxfruits.com"><img src="robloxphisi1.png" alt="Blox Fruits Neymar"></a>
             </div>
         </div>
     </div>
