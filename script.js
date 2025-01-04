@@ -51,11 +51,13 @@ document.getElementById("difficulty").addEventListener("change", (e) => {
     difficulty = parseInt(e.target.value);
 });
 
+// Função de desenhar a raquete
 function drawPaddle(x, y, width, height, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
 }
 
+// Função de desenhar a bola
 function drawBall(x, y, size, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
@@ -63,12 +65,14 @@ function drawBall(x, y, size, color) {
     ctx.fill();
 }
 
+// Função para atualizar a raquete do jogador
 function updatePlayerPaddle() {
     player.y += player.dy;
     if (player.y < 0) player.y = 0;
     if (player.y + player.height > canvas.height) player.y = canvas.height - player.height;
 }
 
+// Função para atualizar a raquete da IA
 function updateAiPaddle() {
     if (ai.y + ai.height / 2 < ball.y) ai.y += difficulty;
     else if (ai.y + ai.height / 2 > ball.y) ai.y -= difficulty;
@@ -77,6 +81,7 @@ function updateAiPaddle() {
     if (ai.y + ai.height > canvas.height) ai.y = canvas.height - ai.height;
 }
 
+// Função para mover a bola
 function moveBall() {
     ball.x += ball.speedX;
     ball.y += ball.speedY;
@@ -102,6 +107,7 @@ function moveBall() {
     }
 }
 
+// Função para resetar a bola
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
@@ -109,53 +115,16 @@ function resetBall() {
     ball.speedY = 5 * (Math.random() < 0.5 ? 1 : -1);
 }
 
+// Função para atualizar o placar
 function updateScores() {
     document.getElementById("player-score").textContent = playerScore;
     document.getElementById("ai-score").textContent = aiScore;
 }
 
+// Função do loop do jogo
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     updatePlayerPaddle();
     updateAiPaddle();
     moveBall();
-    drawPaddle(player.x, player.y, player.width, player.height, player.color);
-    drawPaddle(ai.x, ai.y, ai.width, ai.height, ai.color);
-    drawBall(ball.x, ball.y, ball.size, ball.color);
-    updateScores();
-
-    if (playerScore >= 3 || aiScore >= 3) {
-        if (playerScore > aiScore) {
-            alert("Você venceu!");
-        } else {
-            alert("Você perdeu!");
-        }
-        resetGame();
-    }
-
-    requestAnimationFrame(gameLoop);
-}
-
-function startGame() {
-    playerScore = 0;
-    aiScore = 0;
-    updateScores();
-    resetBall();
-    gameLoop();
-}
-
-function resetGame() {
-    playerScore = 0;
-    aiScore = 0;
-    updateScores();
-    resetBall();
-}
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowUp") player.dy = -5;
-    if (e.key === "ArrowDown") player.dy = 5;
-});
-
-document.addEventListener("keyup", (e) => {
-    if (e.key === "ArrowUp" || e.key === "ArrowDown") player.dy = 0;
-});
+    drawPaddle(player.x, player.y
