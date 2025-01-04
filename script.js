@@ -127,4 +127,62 @@ function gameLoop() {
     updatePlayerPaddle();
     updateAiPaddle();
     moveBall();
-    drawPaddle(player.x, player.y
+    drawPaddle(player.x, player.y, player.width, player.height, player.color);
+    drawPaddle(ai.x, ai.y, ai.width, ai.height, ai.color);
+    drawBall(ball.x, ball.y, ball.size, ball.color);
+    updateScores();
+
+    if (playerScore >= 3 || aiScore >= 3) {
+        if (playerScore > aiScore) {
+            alert("Você venceu!");
+        } else {
+            alert("Você perdeu!");
+        }
+        resetGame();
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+function startGame() {
+    playerScore = 0;
+    aiScore = 0;
+    updateScores();
+    resetBall();
+    gameLoop();
+}
+
+function resetGame() {
+    playerScore = 0;
+    aiScore = 0;
+    updateScores();
+    resetBall();
+}
+
+// Controlando a raquete com o teclado
+document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp") player.dy = -5;
+    if (e.key === "ArrowDown") player.dy = 5;
+});
+
+document.addEventListener("keyup", (e) => {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") player.dy = 0;
+});
+
+// Controlando a raquete com os botões
+document.getElementById("move-up").addEventListener("click", () => {
+    player.dy = -5;
+});
+
+document.getElementById("move-down").addEventListener("click", () => {
+    player.dy = 5;
+});
+
+// Parando o movimento da raquete quando o botão for solto
+document.getElementById("move-up").addEventListener("mouseup", () => {
+    player.dy = 0;
+});
+
+document.getElementById("move-down").addEventListener("mouseup", () => {
+    player.dy = 0;
+});
