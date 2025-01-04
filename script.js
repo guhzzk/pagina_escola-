@@ -1,10 +1,19 @@
 const canvas = document.getElementById("pong");
 const ctx = canvas.getContext("2d");
-canvas.width = 800;
-canvas.height = 400;
 
-const paddleWidth = 10, paddleHeight = 100;
-const ballSize = 10;
+// Definindo o tamanho do canvas para ser responsivo
+function resizeCanvas() {
+    canvas.width = window.innerWidth * 0.9;  // 90% da largura da tela
+    canvas.height = window.innerWidth * 0.5;  // 50% da largura da tela
+    resetBall();  // Resetar a bola ao ajustar o tamanho
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();  // Chama a função inicialmente para ajustar o tamanho
+
+const paddleWidth = canvas.width * 0.02; // Ajustando a largura do paddle
+const paddleHeight = canvas.height * 0.25; // Ajustando a altura do paddle
+const ballSize = canvas.width * 0.02; // Ajustando o tamanho da bola
 
 let player = {
     x: 10,
@@ -35,7 +44,7 @@ let ball = {
 
 let playerScore = 0;
 let aiScore = 0;
-let difficulty = 2; // Default difficulty is Medium
+let difficulty = 2;
 
 document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("difficulty").addEventListener("change", (e) => {
