@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pong Game</title>
+    <title>Pong - Jogue Contra a IA</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Pong Game</h1>
-        <div id="scoreboard">
-            <span id="playerScore">0</span> - <span id="aiScore">0</span>
+        <h1>Pong - Jogue Contra a IA</h1>
+        <div class="game">
+            <canvas id="pong"></canvas>
+            <div class="controls">
+                <button id="start-btn">Iniciar Jogo</button>
+                <div id="difficulty">
+                    <label for="difficulty">Dificuldade: </label>
+                    <select id="difficulty">
+                        <option value="1">Fácil</option>
+                        <option value="2">Médio</option>
+                        <option value="3">Difícil</option>
+                        <option value="4">Impossível</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div id="gameCanvasContainer">
-            <canvas id="pongGame"></canvas>
+        <div class="score-board">
+            <div id="player-score">0</div>
+            <div id="ai-score">0</div>
         </div>
-        <div id="difficulty">
-            <label for="difficultySelect">Escolha a dificuldade:</label>
-            <select id="difficultySelect">
-                <option value="1">Fácil</option>
-                <option value="2">Médio</option>
-                <option value="3">Difícil</option>
-                <option value="4">Impossível</option>
-            </select>
-        </div>
-        <div id="winnerMessage"></div>
     </div>
-    <footer>
-        <p>ib:guhzzk lindo</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
