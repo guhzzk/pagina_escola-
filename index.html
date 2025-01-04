@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pong - Jogo com IA</title>
+    <title>Pong Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Pong - Jogo com IA</h1>
-    <label for="difficulty">Escolha a dificuldade:</label>
-    <select id="difficulty">
-        <option value="easy">Fácil</option>
-        <option value="medium">Média</option>
-        <option value="hard">Difícil</option>
-    </select>
+    <div class="game-container">
+        <h1>Pong Game</h1>
+        <div id="scoreboard">
+            <span id="playerScore">0</span> - <span id="aiScore">0</span>
+        </div>
+        <div id="gameCanvasContainer">
+            <canvas id="pongGame"></canvas>
+        </div>
+        <div id="difficulty">
+            <label for="difficultySelect">Escolha a dificuldade:</label>
+            <select id="difficultySelect">
+                <option value="1">Fácil</option>
+                <option value="2">Médio</option>
+                <option value="3">Difícil</option>
+                <option value="4">Impossível</option>
+            </select>
+        </div>
+        <div id="winnerMessage"></div>
+    </div>
+    <footer>
+        <p>ib:guhzzk lindo</p>
+    </footer>
 
-    <canvas id="pongCanvas" width="800" height="400"></canvas>
-
-    <script src="pong.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
