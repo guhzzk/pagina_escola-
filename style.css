@@ -1,53 +1,69 @@
-/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1d1d1d;
     color: white;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
-.game-container {
+.game {
+    position: relative;
+    width: 80vw;
+    height: 50vh;
+    border: 1px solid #fff;
+    background-color: black;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.controls {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button, select {
+    font-size: 1em;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+    margin-top: 10px;
+}
+
+#player-score, #ai-score {
+    font-size: 2em;
+    width: 50px;
     text-align: center;
-}
-
-h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-#scoreboard {
-    font-size: 24px;
-    margin: 20px;
-}
-
-#gameCanvasContainer {
-    margin: 20px;
-}
-
-#difficulty {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-select {
-    padding: 5px;
-    font-size: 16px;
-}
-
-footer {
-    margin-top: 50px;
-    font-size: 18px;
-}
-
-#winnerMessage {
-    font-size: 24px;
-    color: #ff0000;
-    font-weight: bold;
 }
