@@ -10,15 +10,15 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #2b5876, #4e4376); /* Fundo bonito */
             margin: 0;
+            background-color: #1c1c1c;
             font-family: 'Arial', sans-serif;
         }
 
         canvas {
             border: 5px solid #fff;
-            background-color: #333; /* Cor de fundo do jogo */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Efeito de sombra */
+            background-color: #333;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
         }
 
         .score-board {
@@ -40,11 +40,28 @@
             text-align: center;
             display: none;
         }
+
+        .restart-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .restart-button:hover {
+            background-color: #45a049;
+        }
+
     </style>
 </head>
 <body>
     <div class="score-board">Pontuação: <span id="score">0</span></div>
-    <div class="game-over" id="gameOver">GAME OVER!<br>Pontuação Final: <span id="finalScore"></span><br><button onclick="restartGame()">Reiniciar</button></div>
+    <div class="game-over" id="gameOver">
+        GAME OVER!<br>Pontuação Final: <span id="finalScore"></span><br><button class="restart-button" onclick="restartGame()">Reiniciar</button>
+    </div>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
     <script>
@@ -70,19 +87,19 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Desenhar a cobrinha com um gradiente de cores
+            // Desenhar a cobrinha com cores suaves e agradáveis
             snake.forEach((segment, index) => {
-                ctx.fillStyle = index === 0 ? "limegreen" : "white";
-                ctx.strokeStyle = "darkgreen";
+                ctx.fillStyle = index === 0 ? "#4CAF50" : "#66BB6A"; // Cabeça verde e corpo mais claro
+                ctx.strokeStyle = "white";
                 ctx.lineWidth = 2;
                 ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
                 ctx.strokeRect(segment.x, segment.y, gridSize, gridSize);
             });
 
-            // Desenhar a comida com um efeito de brilho
-            ctx.fillStyle = "red";
-            ctx.shadowColor = "yellow";
-            ctx.shadowBlur = 20;
+            // Desenhar a comida de forma mais chamativa
+            ctx.fillStyle = "#FF7043"; // Cor laranja para a comida
+            ctx.shadowColor = "#FF8A65";
+            ctx.shadowBlur = 15;
             ctx.fillRect(food.x, food.y, gridSize, gridSize);
             ctx.shadowBlur = 0;
 
@@ -135,7 +152,7 @@
             document.getElementById("finalScore").textContent = score;
             document.getElementById("gameOver").style.display = "block";
             canvas.style.display = "none"; // Esconde o canvas
-            cancelAnimationFrame(gameInterval); // Cancela o loop de animação
+            clearInterval(gameInterval); // Para o loop de atualização
         }
 
         // Função de reiniciar o jogo
@@ -196,10 +213,10 @@
             event.preventDefault(); // Impede o comportamento padrão de rolagem
         }, { passive: false });
 
-        // Função principal do jogo com requestAnimationFrame
+        // Função principal do jogo com velocidade ajustada
         function gameLoop() {
             draw();
-            gameInterval = requestAnimationFrame(gameLoop); // Usando requestAnimationFrame para o loop
+            gameInterval = setInterval(gameLoop, 100); // Atualiza o jogo a cada 100ms
         }
 
         gameLoop(); // Inicia o jogo
