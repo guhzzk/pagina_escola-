@@ -10,17 +10,41 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #2b5876, #4e4376); /* Fundo bonito */
             margin: 0;
+            font-family: 'Arial', sans-serif;
         }
 
         canvas {
-            border: 1px solid #000;
-            background-color: #000;
+            border: 5px solid #fff;
+            background-color: #333; /* Cor de fundo do jogo */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Efeito de sombra */
+        }
+
+        .score-board {
+            position: absolute;
+            top: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="score-board">Pontuação: <span id="score">0</span></div>
+    <div class="game-over" id="gameOver">GAME OVER!<br>Pontuação Final: <span id="finalScore"></span><br><button onclick="restartGame()">Reiniciar</button></div>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
     <script>
@@ -45,20 +69,24 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Desenhar a cobrinha
+            // Desenhar a cobrinha com um gradiente de cores
             snake.forEach((segment, index) => {
-                ctx.fillStyle = index === 0 ? "green" : "white";
+                ctx.fillStyle = index === 0 ? "limegreen" : "white";
+                ctx.strokeStyle = "darkgreen";
+                ctx.lineWidth = 2;
                 ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+                ctx.strokeRect(segment.x, segment.y, gridSize, gridSize);
             });
 
-            // Desenhar a comida
+            // Desenhar a comida com um efeito de brilho
             ctx.fillStyle = "red";
+            ctx.shadowColor = "yellow";
+            ctx.shadowBlur = 20;
             ctx.fillRect(food.x, food.y, gridSize, gridSize);
+            ctx.shadowBlur = 0;
 
-            // Mostrar a pontuação
-            ctx.fillStyle = "black";
-            ctx.font = "20px Arial";
-            ctx.fillText("Pontuação: " + score, 10, 30);
+            // Atualizar a pontuação na tela
+            document.getElementById("score").textContent = score;
 
             moveSnake();
             checkCollisions();
@@ -103,11 +131,20 @@
 
         // Função de game over
         function gameOver() {
-            alert("Game Over! Sua pontuação foi: " + score);
+            document.getElementById("finalScore").textContent = score;
+            document.getElementById("gameOver").style.display = "block";
+            canvas.style.display = "none"; // Esconde o canvas
+        }
+
+        // Função de reiniciar o jogo
+        function restartGame() {
             snake = [{ x: 160, y: 160 }];
             direction = "RIGHT";
             score = 0;
             food = generateFood();
+            document.getElementById("gameOver").style.display = "none";
+            canvas.style.display = "block"; // Mostra o canvas novamente
+            gameLoop(); // Reinicia o loop do jogo
         }
 
         // Função para mover a cobrinha com as teclas
@@ -151,6 +188,11 @@
                 }
             }
         });
+
+        // Previne o comportamento de recarregar ao puxar para baixo
+        window.addEventListener("touchmove", function(event) {
+            event.preventDefault(); // Impede o comportamento padrão de rolagem
+        }, { passive: false });
 
         // Função principal do jogo
         function gameLoop() {
