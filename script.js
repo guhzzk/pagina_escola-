@@ -169,4 +169,9 @@ document.addEventListener('touchmove', (e) => {
 });
 
 // Iniciar o jogo ao clicar no botão
-startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", () => {
+    // Verifica se o jogo está parado e inicia
+    if (!gameRunning) {
+        startGame();
+    }
+});
