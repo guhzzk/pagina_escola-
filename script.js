@@ -52,7 +52,11 @@ function updateSnake() {
     if (direction === 'RIGHT') head.x += gridSize;
 
     snake.unshift(head); // Adiciona o novo segmento na frente da cobrinha
-    snake.pop(); // Remove o último segmento
+
+    // Se a cobrinha não comer a comida, remove o último segmento
+    if (!eatFood()) {
+        snake.pop();
+    }
 }
 
 // Verifica colisões com a parede ou com o próprio corpo
@@ -123,25 +127,25 @@ function showStartButton() {
 }
 
 // Eventos de controle (teclado e tela sensível)
-let lastKeyPressed = '';
+let lastDirection = 'RIGHT'; // Direção inicial
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) return;
 
     // Verifica a direção da cobrinha e impede virar para a direção oposta
-    if (event.key === 'ArrowUp' && direction !== 'DOWN') {
+    if (event.key === 'ArrowUp' && lastDirection !== 'DOWN') {
         direction = 'UP';
     }
-    if (event.key === 'ArrowDown' && direction !== 'UP') {
+    if (event.key === 'ArrowDown' && lastDirection !== 'UP') {
         direction = 'DOWN';
     }
-    if (event.key === 'ArrowLeft' && direction !== 'RIGHT') {
+    if (event.key === 'ArrowLeft' && lastDirection !== 'RIGHT') {
         direction = 'LEFT';
     }
-    if (event.key === 'ArrowRight' && direction !== 'LEFT') {
+    if (event.key === 'ArrowRight' && lastDirection !== 'LEFT') {
         direction = 'RIGHT';
     }
 
-    lastKeyPressed = direction; // Salva a última direção pressionada
+    lastDirection = direction; // Salva a última direção pressionada
 });
 
 // Controles para dispositivos móveis (usando toques)
@@ -160,15 +164,15 @@ document.addEventListener('touchmove', (e) => {
 
         // Verifica a direção do movimento no toque
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            if (deltaX > 0 && direction !== 'LEFT') {
+            if (deltaX > 0 && lastDirection !== 'LEFT') {
                 direction = 'RIGHT';
-            } else if (deltaX < 0 && direction !== 'RIGHT') {
+            } else if (deltaX < 0 && lastDirection !== 'RIGHT') {
                 direction = 'LEFT';
             }
         } else {
-            if (deltaY > 0 && direction !== 'UP') {
+            if (deltaY > 0 && lastDirection !== 'UP') {
                 direction = 'DOWN';
-            } else if (deltaY < 0 && direction !== 'DOWN') {
+            } else if (deltaY < 0 && lastDirection !== 'DOWN') {
                 direction = 'UP';
             }
         }
