@@ -153,4 +153,20 @@ document.addEventListener('touchmove', (e) => {
             if (deltaX > 0) {
                 direction = 'RIGHT';
             } else {
-               
+                direction = 'LEFT';
+            }
+        } else {
+            if (deltaY > 0) {
+                direction = 'DOWN';
+            } else {
+                direction = 'UP';
+            }
+        }
+
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+});
+
+// Iniciar o jogo ao clicar no botão
+startButton.addEventListener("click", startGame);
