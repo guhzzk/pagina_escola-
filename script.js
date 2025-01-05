@@ -36,8 +36,7 @@ function gameLoop() {
         return endGame();
     }
     if (eatFood()) {
-        food = spawnFood(); // Recria a comida após a cobra comer
-        growSnake(); // Faz a cobra crescer
+        food = spawnFood();
     }
     draw();
 }
@@ -51,12 +50,8 @@ function updateSnake() {
     if (direction === 'LEFT') head.x -= gridSize;
     if (direction === 'RIGHT') head.x += gridSize;
 
-    snake.unshift(head); // Adiciona o novo segmento na frente da cobrinha
-
-    // Se a cobrinha não comer a comida, remove o último segmento
-    if (!eatFood()) {
-        snake.pop();
-    }
+    snake.unshift(head);
+    snake.pop();
 }
 
 // Verifica colisões com a parede ou com o próprio corpo
@@ -77,12 +72,6 @@ function checkCollision() {
 function eatFood() {
     const head = snake[0];
     return head.x === food.x && head.y === food.y;
-}
-
-// Função para fazer a cobra crescer
-function growSnake() {
-    // Não remove o último segmento para que a cobra cresça
-    snake.push({}); // Adiciona um novo segmento vazio, será atualizado na próxima iteração
 }
 
 // Desenha o jogo na tela
@@ -127,25 +116,23 @@ function showStartButton() {
 }
 
 // Eventos de controle (teclado e tela sensível)
-let lastDirection = 'RIGHT'; // Direção inicial
+let lastKeyPressed = '';
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) return;
 
-    // Verifica a direção da cobrinha e impede virar para a direção oposta
-    if (event.key === 'ArrowUp' && lastDirection !== 'DOWN') {
+    if (event.key === 'ArrowUp' && lastKeyPressed !== 'DOWN') {
         direction = 'UP';
     }
-    if (event.key === 'ArrowDown' && lastDirection !== 'UP') {
+    if (event.key === 'ArrowDown' && lastKeyPressed !== 'UP') {
         direction = 'DOWN';
     }
-    if (event.key === 'ArrowLeft' && lastDirection !== 'RIGHT') {
+    if (event.key === 'ArrowLeft' && lastKeyPressed !== 'RIGHT') {
         direction = 'LEFT';
     }
-    if (event.key === 'ArrowRight' && lastDirection !== 'LEFT') {
+    if (event.key === 'ArrowRight' && lastKeyPressed !== 'LEFT') {
         direction = 'RIGHT';
     }
-
-    lastDirection = direction; // Salva a última direção pressionada
+    lastKeyPressed = direction;
 });
 
 // Controles para dispositivos móveis (usando toques)
@@ -162,17 +149,16 @@ document.addEventListener('touchmove', (e) => {
         let deltaX = e.touches[0].clientX - touchStartX;
         let deltaY = e.touches[0].clientY - touchStartY;
 
-        // Verifica a direção do movimento no toque
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            if (deltaX > 0 && lastDirection !== 'LEFT') {
+            if (deltaX > 0) {
                 direction = 'RIGHT';
-            } else if (deltaX < 0 && lastDirection !== 'RIGHT') {
+            } else {
                 direction = 'LEFT';
             }
         } else {
-            if (deltaY > 0 && lastDirection !== 'UP') {
+            if (deltaY > 0) {
                 direction = 'DOWN';
-            } else if (deltaY < 0 && lastDirection !== 'DOWN') {
+            } else {
                 direction = 'UP';
             }
         }
