@@ -8,6 +8,7 @@ let direction = "RIGHT";
 let food = generateFood();
 let score = 0;
 let gameInterval;
+let touchActive = false; // Flag para controlar o toque
 
 function generateFood() {
     let x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
@@ -97,13 +98,17 @@ window.addEventListener("keydown", function(event) {
     }
 });
 
+// Controla os toques na tela para evitar aceleração
 let touchStartX, touchStartY;
 window.addEventListener("touchstart", function(event) {
+    if (touchActive) return; // Impede múltiplos toques
+    touchActive = true;
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
 });
 
 window.addEventListener("touchend", function(event) {
+    if (!touchActive) return; // Impede toques adicionais se o toque não foi iniciado
     let touchEndX = event.changedTouches[0].clientX;
     let touchEndY = event.changedTouches[0].clientY;
 
@@ -123,15 +128,18 @@ window.addEventListener("touchend", function(event) {
             direction = "UP";
         }
     }
+
+    touchActive = false; // Libera o toque após processá-lo
 });
 
+// Previne o comportamento de recarregar ao puxar para baixo
 window.addEventListener("touchmove", function(event) {
     event.preventDefault();
 }, { passive: false });
 
 function gameLoop() {
     draw();
-    gameInterval = setInterval(gameLoop, 100);
+    gameInterval = setInterval(gameLoop, 100); // Velocidade estável
 }
 
 gameLoop();
