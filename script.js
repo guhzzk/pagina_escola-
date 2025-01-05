@@ -1,145 +1,117 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// Configurações do jogo
 const gridSize = 20;
 const canvasSize = 400;
+const snakeSpeed = 150;
 let snake = [{ x: 160, y: 160 }];
-let direction = "RIGHT";
-let food = generateFood();
-let score = 0;
-let gameInterval;
-let touchActive = false; // Flag para controlar o toque
+let direction = 'RIGHT';
+let food = spawnFood();
 
-function generateFood() {
+// Eventos de controle
+let lastKeyPressed = '';
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowUp' && lastKeyPressed !== 'DOWN') {
+        direction = 'UP';
+    }
+    if (event.key === 'ArrowDown' && lastKeyPressed !== 'UP') {
+        direction = 'DOWN';
+    }
+    if (event.key === 'ArrowLeft' && lastKeyPressed !== 'RIGHT') {
+        direction = 'LEFT';
+    }
+    if (event.key === 'ArrowRight' && lastKeyPressed !== 'LEFT') {
+        direction = 'RIGHT';
+    }
+    lastKeyPressed = direction;
+});
+
+// Prevenir o comportamento padrão do gesto de rolar para baixo em dispositivos móveis
+document.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+});
+
+// Função principal de atualização do jogo
+function gameLoop() {
+    updateSnake();
+    if (checkCollision()) {
+        return endGame();
+    }
+    if (eatFood()) {
+        food = spawnFood();
+    }
+    draw();
+}
+
+// Atualiza a posição da cobrinha
+function updateSnake() {
+    let head = { ...snake[0] };
+
+    if (direction === 'UP') head.y -= gridSize;
+    if (direction === 'DOWN') head.y += gridSize;
+    if (direction === 'LEFT') head.x -= gridSize;
+    if (direction === 'RIGHT') head.x += gridSize;
+
+    snake.unshift(head);
+    snake.pop();
+}
+
+// Verifica colisões com a parede ou com o próprio corpo
+function checkCollision() {
+    const head = snake[0];
+    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+        return true;
+    }
+    for (let i = 1; i < snake.length; i++) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Verifica se a cobrinha comeu a comida
+function eatFood() {
+    const head = snake[0];
+    return head.x === food.x && head.y === food.y;
+}
+
+// Desenha o jogo na tela
+function draw() {
+    ctx.clearRect(0, 0, canvasSize, canvasSize);
+    drawSnake();
+    drawFood();
+}
+
+// Desenha a cobrinha
+function drawSnake() {
+    snake.forEach((segment, index) => {
+        ctx.fillStyle = index === 0 ? 'lime' : 'green';
+        ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+    });
+}
+
+// Desenha a comida
+function drawFood() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(food.x, food.y, gridSize, gridSize);
+}
+
+// Gera uma nova posição aleatória para a comida
+function spawnFood() {
     let x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
     let y = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
     return { x, y };
 }
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    snake.forEach((segment, index) => {
-        ctx.fillStyle = index === 0 ? "#4CAF50" : "#66BB6A";
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 2;
-        ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
-        ctx.strokeRect(segment.x, segment.y, gridSize, gridSize);
-    });
-
-    ctx.fillStyle = "#FF7043";
-    ctx.shadowColor = "#FF8A65";
-    ctx.shadowBlur = 15;
-    ctx.fillRect(food.x, food.y, gridSize, gridSize);
-    ctx.shadowBlur = 0;
-
-    document.getElementById("score").textContent = score;
-    moveSnake();
-    checkCollisions();
-}
-
-function moveSnake() {
-    const head = { ...snake[0] };
-
-    if (direction === "UP") head.y -= gridSize;
-    if (direction === "DOWN") head.y += gridSize;
-    if (direction === "LEFT") head.x -= gridSize;
-    if (direction === "RIGHT") head.x += gridSize;
-
-    snake.unshift(head);
-
-    if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = generateFood();
-    } else {
-        snake.pop();
-    }
-}
-
-function checkCollisions() {
-    const head = snake[0];
-
-    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-        gameOver();
-    }
-
-    for (let i = 1; i < snake.length; i++) {
-        if (head.x === snake[i].x && head.y === snake[i].y) {
-            gameOver();
-        }
-    }
-}
-
-function gameOver() {
-    document.getElementById("finalScore").textContent = score;
-    document.getElementById("gameOver").style.display = "block";
-    canvas.style.display = "none";
-    clearInterval(gameInterval);
-}
-
-function restartGame() {
+// Função que encerra o jogo
+function endGame() {
+    alert("Fim de jogo!");
     snake = [{ x: 160, y: 160 }];
-    direction = "RIGHT";
-    score = 0;
-    food = generateFood();
-    document.getElementById("gameOver").style.display = "none";
-    canvas.style.display = "block";
-    gameLoop();
+    direction = 'RIGHT';
+    food = spawnFood();
 }
 
-window.addEventListener("keydown", function(event) {
-    if (event.key === "ArrowUp" && direction !== "DOWN") {
-        direction = "UP";
-    } else if (event.key === "ArrowDown" && direction !== "UP") {
-        direction = "DOWN";
-    } else if (event.key === "ArrowLeft" && direction !== "RIGHT") {
-        direction = "LEFT";
-    } else if (event.key === "ArrowRight" && direction !== "LEFT") {
-        direction = "RIGHT";
-    }
-});
-
-// Controla os toques na tela para evitar aceleração
-let touchStartX, touchStartY;
-window.addEventListener("touchstart", function(event) {
-    if (touchActive) return; // Impede múltiplos toques
-    touchActive = true;
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-});
-
-window.addEventListener("touchend", function(event) {
-    if (!touchActive) return; // Impede toques adicionais se o toque não foi iniciado
-    let touchEndX = event.changedTouches[0].clientX;
-    let touchEndY = event.changedTouches[0].clientY;
-
-    let deltaX = touchEndX - touchStartX;
-    let deltaY = touchEndY - touchStartY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 0 && direction !== "LEFT") {
-            direction = "RIGHT";
-        } else if (deltaX < 0 && direction !== "RIGHT") {
-            direction = "LEFT";
-        }
-    } else {
-        if (deltaY > 0 && direction !== "UP") {
-            direction = "DOWN";
-        } else if (deltaY < 0 && direction !== "DOWN") {
-            direction = "UP";
-        }
-    }
-
-    touchActive = false; // Libera o toque após processá-lo
-});
-
-// Previne o comportamento de recarregar ao puxar para baixo
-window.addEventListener("touchmove", function(event) {
-    event.preventDefault();
-}, { passive: false });
-
-function gameLoop() {
-    draw();
-    gameInterval = setInterval(gameLoop, 350); // Velocidade estável
-}
-
-gameLoop();
+// Inicia o loop do jogo
+setInterval(gameLoop, snakeSpeed);
