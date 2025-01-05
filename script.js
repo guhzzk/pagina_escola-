@@ -115,7 +115,7 @@ function showStartButton() {
     startButton.classList.add('visible');
 }
 
-// Eventos de controle
+// Eventos de controle (teclado e tela sensível)
 let lastKeyPressed = '';
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) return;
@@ -135,10 +135,22 @@ document.addEventListener('keydown', (event) => {
     lastKeyPressed = direction;
 });
 
-// Prevenir o comportamento padrão do gesto de rolar para baixo em dispositivos móveis
+// Controles para dispositivos móveis (usando toques)
+let touchStartX, touchStartY;
 document.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+    if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
 });
 
-// Inicializa o botão de start
-startButton.addEventListener('click', startGame);
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1) {
+        let deltaX = e.touches[0].clientX - touchStartX;
+        let deltaY = e.touches[0].clientY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                direction = 'RIGHT';
+            } else {
+               
