@@ -1,0 +1,109 @@
+/* Resetando margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo global */
+body, html {
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #00b09b, #96c93d); /* Gradiente bonito de fundo */
+    color: #fff;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game-container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7); /* Fundo transparente */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    width: 460px;
+    max-width: 90%;
+    transition: transform 0.3s ease;
+}
+
+h1 {
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+canvas {
+    background-color: #222;
+    border: 5px solid #4CAF50;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    border-radius: 10px;
+}
+
+/* Estilo do botão */
+button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+button:active {
+    background-color: #388e3c;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Animação de fade para o botão */
+button {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+button.visible {
+    opacity: 1;
+}
+
+/* Estilo da tela do jogo */
+#game-container:active {
+    transform: scale(0.98);
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+    #game-container {
+        padding: 30px;
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+
+    canvas {
+        width: 100%;
+    }
+}
