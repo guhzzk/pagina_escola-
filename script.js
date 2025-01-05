@@ -139,7 +139,7 @@ window.addEventListener("touchmove", function(event) {
 
 function gameLoop() {
     draw();
-    gameInterval = setInterval(gameLoop, 100); // Velocidade estável
+    gameInterval = setInterval(gameLoop, 350); // Velocidade estável
 }
 
 gameLoop();
