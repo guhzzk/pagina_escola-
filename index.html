@@ -4,23 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Cobrinha</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        canvas {
-            background-color: #000;
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="game-container">
+        <h1>Jogo da Cobrinha</h1>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <button id="startButton">Iniciar Jogo</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
