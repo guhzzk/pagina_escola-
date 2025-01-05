@@ -2,9 +2,9 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 // Configurações do jogo
-const gridSize = 20;
-const canvasSize = 400;
-const snakeSpeed = 100;
+const gridSize = 20; // Tamanho de cada célula do grid
+const canvasSize = 400; // Tamanho do canvas
+const snakeSpeed = 100; // Velocidade da cobrinha
 let snake;
 let direction;
 let food;
@@ -16,9 +16,9 @@ const startButton = document.getElementById("startButton");
 
 // Função para reiniciar o jogo
 function resetGame() {
-    snake = [{ x: 160, y: 160 }];
-    direction = 'RIGHT';
-    food = spawnFood();
+    snake = [{ x: 160, y: 160 }]; // Cobrinha começa no meio
+    direction = 'RIGHT'; // Direção inicial da cobrinha
+    food = spawnFood(); // Coloca a comida
     gameRunning = true;
     startButton.classList.remove('visible');  // Esconde o botão de start
     gameInterval = setInterval(gameLoop, snakeSpeed); // Inicia o loop do jogo
@@ -76,23 +76,23 @@ function eatFood() {
 
 // Desenha o jogo na tela
 function draw() {
-    ctx.clearRect(0, 0, canvasSize, canvasSize);
-    drawSnake();
-    drawFood();
+    ctx.clearRect(0, 0, canvasSize, canvasSize); // Limpa o canvas
+    drawSnake(); // Desenha a cobrinha
+    drawFood(); // Desenha a comida
 }
 
 // Desenha a cobrinha
 function drawSnake() {
     snake.forEach((segment, index) => {
-        ctx.fillStyle = index === 0 ? 'lime' : 'green';
-        ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+        ctx.fillStyle = index === 0 ? 'lime' : 'green'; // Cor diferente para a cabeça
+        ctx.fillRect(segment.x, segment.y, gridSize, gridSize); // Desenha cada segmento
     });
 }
 
 // Desenha a comida
 function drawFood() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(food.x, food.y, gridSize, gridSize);
+    ctx.fillStyle = 'red'; // Cor da comida
+    ctx.fillRect(food.x, food.y, gridSize, gridSize); // Desenha a comida
 }
 
 // Gera uma nova posição aleatória para a comida
