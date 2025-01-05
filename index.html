@@ -57,6 +57,7 @@
         let direction = "RIGHT";
         let food = generateFood();
         let score = 0;
+        let gameInterval;
 
         // Função para gerar comida aleatória
         function generateFood() {
@@ -134,6 +135,7 @@
             document.getElementById("finalScore").textContent = score;
             document.getElementById("gameOver").style.display = "block";
             canvas.style.display = "none"; // Esconde o canvas
+            cancelAnimationFrame(gameInterval); // Cancela o loop de animação
         }
 
         // Função de reiniciar o jogo
@@ -194,13 +196,14 @@
             event.preventDefault(); // Impede o comportamento padrão de rolagem
         }, { passive: false });
 
-        // Função principal do jogo
+        // Função principal do jogo com requestAnimationFrame
         function gameLoop() {
             draw();
-            setTimeout(gameLoop, 100); // Atualiza o jogo a cada 100ms
+            gameInterval = requestAnimationFrame(gameLoop); // Usando requestAnimationFrame para o loop
         }
 
-        gameLoop();
+        gameLoop(); // Inicia o jogo
+
     </script>
 </body>
 </html>
