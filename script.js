@@ -37,6 +37,7 @@ function gameLoop() {
     }
     if (eatFood()) {
         food = spawnFood();
+        snake.push({ ...snake[snake.length - 1] }); // Adiciona um novo segmento à cobrinha
     }
     draw();
 }
@@ -120,19 +121,19 @@ let lastKeyPressed = '';
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) return;
 
-    if (event.key === 'ArrowUp' && lastKeyPressed !== 'DOWN') {
+    // Permitir a troca de direção, mas evitar a reversão
+    if (event.key === 'ArrowUp' && direction !== 'DOWN') {
         direction = 'UP';
     }
-    if (event.key === 'ArrowDown' && lastKeyPressed !== 'UP') {
+    if (event.key === 'ArrowDown' && direction !== 'UP') {
         direction = 'DOWN';
     }
-    if (event.key === 'ArrowLeft' && lastKeyPressed !== 'RIGHT') {
+    if (event.key === 'ArrowLeft' && direction !== 'RIGHT') {
         direction = 'LEFT';
     }
-    if (event.key === 'ArrowRight' && lastKeyPressed !== 'LEFT') {
+    if (event.key === 'ArrowRight' && direction !== 'LEFT') {
         direction = 'RIGHT';
     }
-    lastKeyPressed = direction;
 });
 
 // Controles para dispositivos móveis (usando toques)
