@@ -6,19 +6,17 @@ function adicionar(numero) {
     resultado.value += numero;
 }
 
-function setOperacao(op) {
-    if (resultado.value === '') return;
-    if (valorAnterior !== '') {
-        calcular();
-    }
-    operacao = op;
-    valorAnterior = resultado.value;
+function limpar() {
     resultado.value = '';
+    operacao = '';
+    valorAnterior = '';
 }
 
 function calcular() {
     let valorAtual = resultado.value;
     let total;
+
+    if (valorAnterior === '' || valorAtual === '') return;
 
     switch (operacao) {
         case '+':
@@ -39,4 +37,5 @@ function calcular() {
 
     resultado.value = total;
     operacao = '';
-    valorAnterior =
+    valorAnterior = '';
+}
