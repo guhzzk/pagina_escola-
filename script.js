@@ -19,6 +19,7 @@ function setOperacao(op) {
 function calcular() {
     let valorAtual = resultado.value;
     let total;
+
     switch (operacao) {
         case '+':
             total = parseFloat(valorAnterior) + parseFloat(valorAtual);
@@ -35,13 +36,7 @@ function calcular() {
         default:
             return;
     }
+
     resultado.value = total;
     operacao = '';
-    valorAnterior = '';
-}
-
-function limpar() {
-    resultado.value = '';
-    operacao = '';
-    valorAnterior = '';
-}
+    valorAnterior =
