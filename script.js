@@ -35,7 +35,18 @@ function calcular() {
             return;
     }
 
-    resultado.value = total;
+    resultado.value = total; // Exibe o resultado
     operacao = '';
     valorAnterior = '';
+}
+
+// Função para definir a operação
+function setOperacao(op) {
+    if (resultado.value === '') return;
+    if (valorAnterior !== '') {
+        calcular();
+    }
+    operacao = op;
+    valorAnterior = resultado.value;
+    resultado.value = '';
 }
