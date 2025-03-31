@@ -13,34 +13,33 @@ function limpar() {
 }
 
 function calcular() {
-    let valorAtual = resultado.value;
-    let total;
+    if (valorAnterior === '' || resultado.value === '') return;
 
-    if (valorAnterior === '' || valorAtual === '') return;
+    let valorAtual = parseFloat(resultado.value);
+    let total;
 
     switch (operacao) {
         case '+':
-            total = parseFloat(valorAnterior) + parseFloat(valorAtual);
+            total = parseFloat(valorAnterior) + valorAtual;
             break;
         case '-':
-            total = parseFloat(valorAnterior) - parseFloat(valorAtual);
+            total = parseFloat(valorAnterior) - valorAtual;
             break;
         case '*':
-            total = parseFloat(valorAnterior) * parseFloat(valorAtual);
+            total = parseFloat(valorAnterior) * valorAtual;
             break;
         case '/':
-            total = parseFloat(valorAnterior) / parseFloat(valorAtual);
+            total = parseFloat(valorAnterior) / valorAtual;
             break;
         default:
             return;
     }
 
-    resultado.value = total; // Exibe o resultado
+    resultado.value = total;
+    valorAnterior = total; 
     operacao = '';
-    valorAnterior = '';
 }
 
-// Função para definir a operação
 function setOperacao(op) {
     if (resultado.value === '') return;
     if (valorAnterior !== '') {
