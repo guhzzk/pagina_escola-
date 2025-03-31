@@ -14,9 +14,10 @@ function limpar() {
 
 function calcular() {
     let valorAtual = parseFloat(resultado.value);
-    let total;
 
     if (valorAnterior === '' || resultado.value === '') return;
+
+    let total;
 
     // Substituindo os sinais antes de calcular
     let operador = operacao === 'x' ? '*' : operacao === '÷' ? '/' : operacao;
@@ -42,19 +43,21 @@ function calcular() {
             return;
     }
 
-    resultado.value = total;  // Exibe o resultado
-    operacao = '';  // Apaga a operação para começar uma nova
-    valorAnterior = '';  // Reseta o valor anterior
+    // Atualiza o visor com o resultado
+    resultado.value = total;
+    operacao = '';  // Limpa a operação após o cálculo
+    valorAnterior = '';  // Limpa o valor anterior após o cálculo
 }
 
 function setOperacao(op) {
-    if (resultado.value === '') return;  // Impede a operação caso o visor esteja vazio
+    if (resultado.value === '') return; // Não faz nada se o campo de entrada estiver vazio
+
     if (valorAnterior !== '') {
-        calcular();  // Faz o cálculo se já houver um valor anterior
+        calcular();  // Faz o cálculo anterior antes de aplicar nova operação
     }
 
-    // Modifica a exibição do operador
+    // Armazena a operação (somente o operador como 'x' ou '÷')
     operacao = op === '*' ? 'x' : op === '/' ? '÷' : op;
-    valorAnterior = resultado.value;  // Guarda o valor atual como o anterior
+    valorAnterior = resultado.value;  // Guarda o número atual como valor anterior
     resultado.value = '';  // Limpa o visor para o próximo número
 }
