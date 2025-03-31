@@ -18,7 +18,10 @@ function calcular() {
     let valorAtual = parseFloat(resultado.value);
     let total;
 
-    switch (operacao) {
+    // Substituindo os sinais antes de calcular
+    let operador = operacao === 'x' ? '*' : operacao === '÷' ? '/' : operacao;
+
+    switch (operador) {
         case '+':
             total = parseFloat(valorAnterior) + valorAtual;
             break;
@@ -45,7 +48,9 @@ function setOperacao(op) {
     if (valorAnterior !== '') {
         calcular();
     }
-    operacao = op;
+    
+    // Modifica a exibição do operador
+    operacao = op === '*' ? 'x' : op === '/' ? '÷' : op;
     valorAnterior = resultado.value;
-    resultado.value = '';
+    resultado.value += op;  // Exibe a operação no visor
 }
