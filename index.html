@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1 class="titulo">Calculadora Pika das Galáxias</h1>
     <div class="calculadora">
         <input type="text" id="resultado" disabled>
         <div class="botões">
             <button onclick="limpar()">C</button>
-            <button onclick="adicionar('/')">/</button>
-            <button onclick="adicionar('*')">*</button>
-            <button onclick="adicionar('-')">-</button>
+            <button onclick="setOperacao('/')">/</button>
+            <button onclick="setOperacao('*')">*</button>
+            <button onclick="setOperacao('-')">-</button>
             <button onclick="adicionar('7')">7</button>
             <button onclick="adicionar('8')">8</button>
             <button onclick="adicionar('9')">9</button>
-            <button onclick="adicionar('+')">+</button>
+            <button onclick="setOperacao('+')">+</button>
             <button onclick="adicionar('4')">4</button>
             <button onclick="adicionar('5')">5</button>
             <button onclick="adicionar('6')">6</button>
@@ -28,6 +29,7 @@
             <button onclick="adicionar('0')">0</button>
         </div>
     </div>
+    <p class="creditos">ib:fwck</p>
     <script src="script.js"></script>
 </body>
 </html>
