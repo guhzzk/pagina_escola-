@@ -13,13 +13,16 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a, #1a0a2e, #0f1a2e);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #050505, #0a0515, #050a15);
+            color: #c0c0c0;
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
             background-attachment: fixed;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 20%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.7" fill="%23000000" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
         }
         
         .container {
@@ -28,15 +31,15 @@
             padding: 2rem;
         }
         
-        /* Header Épico */
+        /* Header Épico - Versão Dark */
         .header {
             text-align: center;
             padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
+            background: rgba(5, 5, 5, 0.9);
+            border-radius: 15px;
             margin-bottom: 3rem;
-            border: 3px solid #8B4513;
-            box-shadow: 0 0 40px rgba(139, 69, 19, 0.4);
+            border: 2px solid #3a1f04;
+            box-shadow: 0 0 30px rgba(60, 30, 5, 0.5);
             position: relative;
             overflow: hidden;
         }
@@ -47,102 +50,108 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #8B4513, #D2691E, #8B4513);
+            height: 4px;
+            background: linear-gradient(90deg, #3a1f04, #5a2f0a, #3a1f04);
         }
         
         .title {
             font-family: 'Cinzel', serif;
             font-size: 3.5rem;
-            color: #D4AF37;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+            color: #8B7355;
+            text-shadow: 0 0 15px rgba(139, 115, 85, 0.5);
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
+            background: linear-gradient(45deg, #8B7355, #A8916D, #8B7355);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: 2px;
         }
         
         .subtitle {
             font-family: 'MedievalSharp', cursive;
             font-size: 1.5rem;
-            color: #8B4513;
+            color: #5a2f0a;
             margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
+            text-shadow: 0 0 8px rgba(90, 47, 10, 0.4);
         }
         
-        /* Card Principal */
+        /* Card Principal - Versão Dark */
         .main-card {
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 15px;
+            background: rgba(10, 5, 5, 0.9);
+            border-radius: 12px;
             padding: 3rem;
             text-align: center;
-            border: 2px solid #8B4513;
-            box-shadow: 0 0 30px rgba(139, 69, 19, 0.3);
+            border: 2px solid #3a1f04;
+            box-shadow: 0 0 25px rgba(60, 30, 5, 0.4);
             margin-bottom: 3rem;
             position: relative;
         }
         
         .main-card::before {
             content: '⚔️';
-            font-size: 4rem;
+            font-size: 3.5rem;
             position: absolute;
-            top: -30px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            background: #0a0a0a;
+            background: #050505;
             padding: 0 20px;
+            text-shadow: 0 0 10px rgba(139, 115, 85, 0.7);
         }
         
         .discord-icon {
             font-size: 4rem;
             margin-bottom: 1.5rem;
             animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(139, 115, 85, 0.5));
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         
         .main-card h2 {
-            color: #D4AF37;
+            color: #8B7355;
             font-size: 2.2rem;
             margin-bottom: 1rem;
             font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(139, 115, 85, 0.3);
         }
         
         .main-card p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            color: #cccccc;
+            color: #a0a0a0;
             line-height: 1.8;
         }
         
-        /* Botão Discord */
+        /* Botão Discord - Versão Dark */
         .discord-btn {
             display: inline-block;
-            background: linear-gradient(45deg, #5865F2, #7289da);
-            color: white;
+            background: linear-gradient(45deg, #3a2c6e, #4a3c8e);
+            color: #e0e0e0;
             padding: 1.3rem 3rem;
             font-size: 1.3rem;
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
             transition: all 0.3s ease;
-            border: 2px solid #D4AF37;
+            border: 1px solid #8B7355;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.4);
+            box-shadow: 0 5px 15px rgba(58, 44, 110, 0.5);
             font-family: 'MedievalSharp', cursive;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
         }
         
         .discord-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(88, 101, 242, 0.6);
-            background: linear-gradient(45deg, #7289da, #5865F2);
+            box-shadow: 0 8px 20px rgba(58, 44, 110, 0.7);
+            background: linear-gradient(45deg, #4a3c8e, #3a2c6e);
+            color: #f0f0f0;
         }
         
-        /* Sistema de Recursos */
+        /* Sistema de Recursos - Versão Dark */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -151,47 +160,79 @@
         }
         
         .feature-card {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(15, 10, 10, 0.8);
             padding: 2.5rem;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
-            border: 1px solid #8B4513;
+            border: 1px solid #3a1f04;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 115, 85, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: #D4AF37;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+            border-color: #8B7355;
+            box-shadow: 0 8px 20px rgba(60, 30, 5, 0.4);
         }
         
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: #D4AF37;
+            color: #8B7355;
+            filter: drop-shadow(0 0 5px rgba(139, 115, 85, 0.3));
         }
         
         .feature-card h3 {
-            color: #D4AF37;
+            color: #8B7355;
             margin-bottom: 1rem;
             font-size: 1.5rem;
             font-family: 'Cinzel', serif;
         }
         
         .feature-card p {
-            color: #cccccc;
+            color: #b0b0b0;
             line-height: 1.6;
         }
         
-        /* Seção de Dados */
+        /* Seção de Dados - Versão Dark */
         .dice-section {
-            background: rgba(139, 69, 19, 0.1);
+            background: rgba(20, 10, 5, 0.7);
             padding: 3rem;
-            border-radius: 15px;
+            border-radius: 12px;
             margin: 3rem 0;
-            border: 2px solid #8B4513;
+            border: 2px solid #3a1f04;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dice-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .dice-container {
@@ -200,61 +241,105 @@
             gap: 2rem;
             flex-wrap: wrap;
             margin: 2rem 0;
+            position: relative;
+            z-index: 1;
         }
         
         .dice {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #8B4513, #D2691E);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2a1505, #4a2505);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #8B7355;
+            border: 2px solid #5a2f0a;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+        
+        .dice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(139, 115, 85, 0.1) 50%, transparent 70%);
+        }
+        
+        .dice-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2a1505, #4a2505);
+            border: 1px solid #5a2f0a;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #D4AF37;
-            border: 2px solid #D4AF37;
-            animation: dice-roll 2s infinite;
+            color: #8B7355;
         }
         
-        @keyframes dice-roll {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(90deg); }
-            50% { transform: rotate(180deg); }
-            75% { transform: rotate(270deg); }
-        }
-        
-        /* Eventos */
+        /* Eventos - Versão Dark */
         .events-section {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(15, 10, 10, 0.8);
             padding: 3rem;
-            border-radius: 15px;
+            border-radius: 12px;
             margin: 3rem 0;
-            border: 2px solid #8B4513;
+            border: 2px solid #3a1f04;
+            position: relative;
+        }
+        
+        .events-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3a1f04, #5a2f0a, #3a1f04);
         }
         
         .event-item {
-            background: rgba(139, 69, 19, 0.2);
+            background: rgba(30, 15, 5, 0.5);
             padding: 1.5rem;
             margin: 1rem 0;
             border-radius: 8px;
-            border-left: 4px solid #D4AF37;
+            border-left: 4px solid #8B7355;
+            transition: all 0.3s ease;
+        }
+        
+        .event-item:hover {
+            background: rgba(40, 20, 5, 0.6);
+            transform: translateX(5px);
         }
         
         .event-item h4 {
-            color: #D4AF37;
+            color: #8B7355;
             margin-bottom: 0.5rem;
             font-family: 'Cinzel', serif;
         }
         
-        /* Footer */
+        /* Footer - Versão Dark */
         .footer {
             text-align: center;
             padding: 3rem;
             margin-top: 3rem;
-            border-top: 2px solid #8B4513;
-            color: #8B4513;
+            border-top: 2px solid #3a1f04;
+            color: #5a2f0a;
             font-family: 'MedievalSharp', cursive;
+            background: rgba(10, 5, 5, 0.8);
+            border-radius: 10px;
         }
         
         /* Responsive */
@@ -280,8 +365,8 @@
             }
             
             .dice {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
@@ -310,13 +395,27 @@
             <h2>🎲 SISTEMA DE DADOS AVANÇADO</h2>
             <p>Bots especializados para rolagens complexas e automáticas</p>
             <div class="dice-container">
-                <div class="dice">D4</div>
-                <div class="dice">D6</div>
-                <div class="dice">D8</div>
-                <div class="dice">D10</div>
-                <div class="dice">D12</div>
-                <div class="dice">D20</div>
-                <div class="dice">D100</div>
+                <div class="dice" data-sides="4">
+                    <div class="dice-face">4</div>
+                </div>
+                <div class="dice" data-sides="6">
+                    <div class="dice-face">6</div>
+                </div>
+                <div class="dice" data-sides="8">
+                    <div class="dice-face">8</div>
+                </div>
+                <div class="dice" data-sides="10">
+                    <div class="dice-face">10</div>
+                </div>
+                <div class="dice" data-sides="12">
+                    <div class="dice-face">12</div>
+                </div>
+                <div class="dice" data-sides="20">
+                    <div class="dice-face">20</div>
+                </div>
+                <div class="dice" data-sides="100">
+                    <div class="dice-face">100</div>
+                </div>
             </div>
         </div>
         
@@ -361,7 +460,7 @@
         
         <!-- Eventos em Destaque -->
         <div class="events-section">
-            <h2 style="text-align: center; color: #D4AF37; margin-bottom: 2rem; font-family: 'Cinzel', serif;">📅 EVENTOS EM DESTAQUE</h2>
+            <h2 style="text-align: center; color: #8B7355; margin-bottom: 2rem; font-family: 'Cinzel', serif;">📅 EVENTOS EM DESTAQUE</h2>
             
             <div class="event-item">
                 <h4>🏆 Torneio Mensal de D&D</h4>
@@ -402,17 +501,58 @@
     </div>
 
     <script>
-        // Efeito de rolagem de dados aleatória
+        // Efeito de rolagem de dados realista
         document.addEventListener('DOMContentLoaded', function() {
-            const dice = document.querySelectorAll('.dice');
+            const diceElements = document.querySelectorAll('.dice');
             
+            // Função para simular rolagem de dados
+            function rollDice(diceElement) {
+                const sides = parseInt(diceElement.getAttribute('data-sides'));
+                const result = Math.floor(Math.random() * sides) + 1;
+                
+                // Animação de rolagem
+                diceElement.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                
+                // Adiciona uma animação de rotação
+                diceElement.style.transition = 'transform 0.1s';
+                let rotationX = 0;
+                let rotationY = 0;
+                
+                const rollInterval = setInterval(() => {
+                    rotationX += 180;
+                    rotationY += 180;
+                    diceElement.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+                }, 100);
+                
+                // Para a animação após um tempo e mostra o resultado
+                setTimeout(() => {
+                    clearInterval(rollInterval);
+                    diceElement.style.transition = 'transform 1s';
+                    diceElement.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                    
+                    // Atualiza o número no dado
+                    diceElement.querySelector('.dice-face').textContent = result;
+                }, 1000);
+            }
+            
+            // Rolagem inicial
+            diceElements.forEach(dice => {
+                rollDice(dice);
+            });
+            
+            // Rolagem a cada 3 segundos
             setInterval(() => {
-                dice.forEach(die => {
-                    const sides = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D100'];
-                    const randomSide = sides[Math.floor(Math.random() * sides.length)];
-                    die.textContent = randomSide;
+                diceElements.forEach(dice => {
+                    rollDice(dice);
                 });
-            }, 2000);
+            }, 3000);
+            
+            // Rolagem ao clicar em um dado
+            diceElements.forEach(dice => {
+                dice.addEventListener('click', function() {
+                    rollDice(this);
+                });
+            });
         });
     </script>
 </body>
