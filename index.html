@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>69 - Moda Contemporânea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #000000;
@@ -91,6 +92,7 @@
         .auth-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
 
         .btn {
@@ -118,6 +120,46 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -127,6 +169,7 @@
             background: linear-gradient(135deg, var(--light) 0%, #e6e6e6 100%);
             position: relative;
             overflow: hidden;
+            margin-top: 80px;
         }
 
         .hero-content {
@@ -210,7 +253,588 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        /* Login Modal */
+        /* Products Section */
+        .products {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 250px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gray);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Product Detail Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .product-modal-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.3s ease;
+            display: flex;
+            overflow: hidden;
+            max-height: 90vh;
+        }
+
+        .product-modal-image {
+            flex: 1;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            min-height: 400px;
+        }
+
+        .product-modal-info {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .close-product-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .close-product-modal:hover {
+            color: var(--dark);
+        }
+
+        .product-modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .product-modal-price {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-modal-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .size-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .size-selector h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .size {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .size.selected {
+            border-color: var(--secondary);
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .product-modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-add-to-cart {
+            flex: 2;
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-buy-now {
+            flex: 1;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1500;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ddd;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .checkout-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .checkout-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-body {
+            padding: 1.5rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-method.selected {
+            border-color: var(--secondary);
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+
+        .payment-form {
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .pix-code {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 1rem;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        .btn-confirm-payment {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        /* Other Pages */
+        .page {
+            padding: 100px 2rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page h1:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 0;
+        }
+
+        .page-content {
+            line-height: 1.6;
+        }
+
+        .page-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: -5px;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -258,31 +882,6 @@
             margin-bottom: 1.5rem;
             text-align: center;
             font-weight: 700;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus {
-            border-color: var(--secondary);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.2);
         }
 
         .form-options {
@@ -346,134 +945,16 @@
             text-decoration: underline;
         }
 
-        /* Products Section */
-        .products {
-            padding: 5rem 2rem;
+        /* Success Modal */
+        .success-modal {
             text-align: center;
+            padding: 2rem;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            font-weight: 800;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 3px;
-            background-color: var(--secondary);
-            bottom: -10px;
-            left: 25%;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .product-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-image {
-            height: 250px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--gray);
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            color: var(--secondary);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-column h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 2px;
-            background-color: var(--secondary);
-            bottom: -5px;
-            left: 0;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-column a {
-            color: #ccc;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-column a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #444;
-            color: #999;
-            font-size: 0.9rem;
+        .success-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
         }
 
         /* Responsive Design */
@@ -485,6 +966,8 @@
             
             nav ul {
                 margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             nav li {
@@ -508,6 +991,24 @@
                 width: 100%;
                 max-width: 250px;
             }
+            
+            .product-modal-content {
+                flex-direction: column;
+                max-height: 95vh;
+            }
+            
+            .product-modal-image {
+                min-height: 200px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -517,109 +1018,367 @@
         <a href="#" class="logo">6<span>9</span></a>
         <nav>
             <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="#">Coleções</a></li>
-                <li><a href="#">Sobre</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="#" data-page="home">Início</a></li>
+                <li><a href="#" data-page="products">Produtos</a></li>
+                <li><a href="#" data-page="collections">Coleções</a></li>
+                <li><a href="#" data-page="about">Sobre Nós</a></li>
+                <li><a href="#" data-page="contact">Contato</a></li>
+                <li><a href="#" data-page="help">Central de Ajuda</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <span id="userName">Usuário</span>
+            </div>
             <button class="btn btn-login" id="loginBtn">Entrar</button>
             <button class="btn btn-signup" id="signupBtn">Cadastrar</button>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>ESTILO QUE <span>TRANSFORMA</span></h1>
-            <p>Descubra peças exclusivas que combinam conforto, qualidade e design inovador. Moda que expressa quem você é.</p>
-            <div class="hero-btns">
-                <button class="btn btn-primary">Explorar Coleção</button>
-                <button class="btn btn-secondary">Ver Ofertas</button>
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>ESTILO QUE <span>TRANSFORMA</span></h1>
+                <p>Descubra peças exclusivas que combinam conforto, qualidade e design inovador. Moda que expressa quem você é.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary" data-page="products">Explorar Coleção</button>
+                    <button class="btn btn-secondary" data-page="offers">Ver Ofertas</button>
+                </div>
             </div>
+            
+            <!-- Floating Elements -->
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
         </div>
-        
-        <!-- Floating Elements -->
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
-    </section>
 
-    <!-- Products Section -->
-    <section class="products">
-        <h2 class="section-title">DESTAQUES</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">👕</div>
-                <div class="product-info">
-                    <h3 class="product-name">Camiseta Essential</h3>
-                    <p class="product-price">R$ 89,90</p>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">👖</div>
-                <div class="product-info">
-                    <h3 class="product-name">Jeans Slim Fit</h3>
-                    <p class="product-price">R$ 159,90</p>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">🧥</div>
-                <div class="product-info">
-                    <h3 class="product-name">Jaqueta Modern</h3>
-                    <p class="product-price">R$ 229,90</p>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">👟</div>
-                <div class="product-info">
-                    <h3 class="product-name">Tênis Urban</h3>
-                    <p class="product-price">R$ 199,90</p>
-                </div>
+        <!-- Products Section -->
+        <div class="products">
+            <h2 class="section-title">DESTAQUES</h2>
+            <div class="product-grid" id="featuredProducts">
+                <!-- Products will be loaded by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>69 MODA</h3>
-                <p>Moda contemporânea com design inovador. Expressão através do estilo.</p>
-            </div>
-            <div class="footer-column">
-                <h3>LINKS ÚTEIS</h3>
-                <ul>
-                    <li><a href="#">Sobre nós</a></li>
-                    <li><a href="#">Nossa história</a></li>
-                    <li><a href="#">Trabalhe conosco</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>AJUDA</h3>
-                <ul>
-                    <li><a href="#">Central de ajuda</a></li>
-                    <li><a href="#">Trocas e devoluções</a></li>
-                    <li><a href="#">Entregas</a></li>
-                    <li><a href="#">Pagamentos</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>CONTATO</h3>
-                <ul>
-                    <li><a href="#">contato@69moda.com</a></li>
-                    <li><a href="#">(11) 99999-9999</a></li>
-                    <li><a href="#">São Paulo, SP</a></li>
-                </ul>
+    <!-- Products Page -->
+    <section id="products" class="page">
+        <h1>NOSSOS PRODUTOS</h1>
+        <div class="product-grid" id="allProducts">
+            <!-- Products will be loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Collections Page -->
+    <section id="collections" class="page">
+        <h1>COLEÇÕES</h1>
+        <div class="page-content">
+            <p>Explore nossas coleções exclusivas, cuidadosamente curadas para oferecer o melhor em moda contemporânea.</p>
+            
+            <div class="product-grid">
+                <div class="product-card" data-product="7">
+                    <div class="product-image">👔</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Coleção Formal</h3>
+                        <p class="product-price">Peças elegantes</p>
+                    </div>
+                </div>
+                <div class="product-card" data-product="8">
+                    <div class="product-image">👕</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Coleção Casual</h3>
+                        <p class="product-price">Conforto e estilo</p>
+                    </div>
+                </div>
+                <div class="product-card" data-product="9">
+                    <div class="product-image">🩳</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Coleção Verão</h3>
+                        <p class="product-price">Frescor e leveza</p>
+                    </div>
+                </div>
+                <div class="product-card" data-product="10">
+                    <div class="product-image">🧥</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Coleção Inverno</h3>
+                        <p class="product-price">Conforto e aquecimento</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2023 69 Moda. Todos os direitos reservados.
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <h1>SOBRE NÓS</h1>
+        <div class="page-content">
+            <p>A <strong>69 Moda</strong> nasceu da paixão por estilo e autenticidade. Fundada em 2020, nossa marca busca oferecer peças que expressam personalidade e confiança.</p>
+            
+            <p>Nossa missão é democratizar a moda de qualidade, oferecendo produtos que combinam design inovador, conforto e preços acessíveis. Acreditamos que a roupa certa pode transformar não apenas a aparência, mas também a atitude.</p>
+            
+            <p>Trabalhamos com materiais sustentáveis e processos éticos, porque acreditamos que moda e responsabilidade devem andar juntas. Cada peça é cuidadosamente pensada para durar e fazer parte da sua história.</p>
+            
+            <h2>Nossa Equipe</h2>
+            <p>Contamos com uma equipe de designers talentosos e especialistas em moda que estão sempre atentos às tendências, sem deixar de lado a praticidade e o conforto que você merece.</p>
         </div>
-    </footer>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <h1>CONTATO</h1>
+        <div class="page-content">
+            <p>Entre em contato conosco para tirar dúvidas, fazer sugestões ou saber mais sobre nossos produtos.</p>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Endereço</h3>
+                    <p>Rua da Moda, 123<br>São Paulo, SP<br>01234-567</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Telefone</h3>
+                    <p>(11) 99999-9999<br>Segunda a Sexta, 9h às 18h</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>E-mail</h3>
+                    <p>contato@69moda.com<br>atendimento@69moda.com</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Redes Sociais</h3>
+                    <p>@69moda<br>Facebook, Instagram, Twitter</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Help Page -->
+    <section id="help" class="page">
+        <h1>CENTRAL DE AJUDA</h1>
+        <div class="page-content">
+            <p>Encontre respostas para as perguntas mais frequentes sobre nossos produtos, pedidos e políticas.</p>
+            
+            <div class="faq">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Como faço para rastrear meu pedido?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Após a confirmação do pagamento, você receberá um e-mail com o código de rastreamento. Você também pode acessar sua conta no site e visualizar o status do pedido na seção "Meus Pedidos".</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Qual é a política de troca e devolução?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Você tem 30 dias para solicitar troca ou devolução a partir da data de recebimento do produto. O item deve estar em perfeito estado, com etiqueta e embalagem original. Entre em contato conosco para iniciar o processo.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quais são as formas de pagamento aceitas?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Aceitamos cartão de crédito (em até 12x), débito, PIX e boleto bancário. Todas as transações são seguras e criptografadas.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Como sei qual é o meu tamanho?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Em cada produto, disponibilizamos uma tabela de medidas detalhada. Recomendamos que você meça uma peça similar que tenha em casa e compare com as medidas da tabela para escolher o tamanho ideal.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Os produtos têm garantia?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, todos os nossos produtos têm garantia contra defeitos de fabricação. Em caso de problema, entre em contato conosco dentro do prazo de 90 dias para avaliarmos a situação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Page -->
+    <section id="offers" class="page">
+        <h1>OFERTAS ESPECIAIS</h1>
+        <div class="page-content">
+            <p>Aproveite nossas promoções por tempo limitado! Descontos exclusivos em peças selecionadas.</p>
+            
+            <div class="product-grid" id="offerProducts">
+                <!-- Offer products will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <span class="close-product-modal" id="closeProductModal">&times;</span>
+            <div class="product-modal-image" id="modalProductImage">👕</div>
+            <div class="product-modal-info">
+                <h2 class="product-modal-title" id="modalProductTitle">Nome do Produto</h2>
+                <p class="product-modal-price" id="modalProductPrice">R$ 0,00</p>
+                <p class="product-modal-description" id="modalProductDescription">Descrição do produto.</p>
+                
+                <div class="size-selector">
+                    <h3>Tamanho</h3>
+                    <div class="sizes">
+                        <div class="size" data-size="P">P</div>
+                        <div class="size" data-size="M">M</div>
+                        <div class="size" data-size="G">G</div>
+                        <div class="size" data-size="GG">GG</div>
+                    </div>
+                </div>
+                
+                <div class="product-modal-actions">
+                    <button class="btn-add-to-cart" id="addToCartBtn">Adicionar ao Carrinho</button>
+                    <button class="btn-buy-now" id="buyNowBtn">Comprar Agora</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Meu Carrinho</h2>
+            <span class="close-cart" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">R$ 0,00</span>
+            </div>
+            <button class="btn-checkout" id="checkoutBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Finalizar Compra</h2>
+                <span class="close-modal" id="closeCheckout">&times;</span>
+            </div>
+            <div class="checkout-body">
+                <h3>Selecione a forma de pagamento</h3>
+                
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="pix">
+                        <i class="fas fa-qrcode"></i>
+                        <p>PIX</p>
+                    </div>
+                    <div class="payment-method" data-method="credit">
+                        <i class="far fa-credit-card"></i>
+                        <p>Cartão de Crédito</p>
+                    </div>
+                    <div class="payment-method" data-method="debit">
+                        <i class="fas fa-credit-card"></i>
+                        <p>Cartão de Débito</p>
+                    </div>
+                </div>
+                
+                <!-- PIX Payment Form -->
+                <div class="payment-form" id="pixForm">
+                    <p>Pague com PIX e ganhe 5% de desconto!</p>
+                    <div class="pix-code" id="pixCode">
+                        00020126580014br.gov.bcb.pix0136123e4567-e12b-12d1-a456-4266554400005204000053039865802BR5913LOJA 69 MODA6008SAO PAULO62070503***6304E2CA
+                    </div>
+                    <p>Copie o código acima e utilize-o no aplicativo do seu banco para realizar o pagamento.</p>
+                    <button class="btn-confirm-payment" id="confirmPix">Confirmar Pagamento</button>
+                </div>
+                
+                <!-- Credit Card Payment Form -->
+                <div class="payment-form" id="creditForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Número do Cartão</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="cardName">Nome no Cartão</label>
+                        <input type="text" id="cardName" placeholder="João da Silva">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cardExpiry">Validade</label>
+                            <input type="text" id="cardExpiry" placeholder="MM/AA">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCvv">CVV</label>
+                            <input type="text" id="cardCvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardInstallments">Parcelas</label>
+                        <select id="cardInstallments">
+                            <option value="1">1x de R$ 0,00</option>
+                            <option value="2">2x de R$ 0,00</option>
+                            <option value="3">3x de R$ 0,00</option>
+                            <option value="4">4x de R$ 0,00</option>
+                            <option value="5">5x de R$ 0,00</option>
+                            <option value="6">6x de R$ 0,00</option>
+                            <option value="7">7x de R$ 0,00</option>
+                            <option value="8">8x de R$ 0,00</option>
+                            <option value="9">9x de R$ 0,00</option>
+                            <option value="10">10x de R$ 0,00</option>
+                            <option value="11">11x de R$ 0,00</option>
+                            <option value="12">12x de R$ 0,00</option>
+                        </select>
+                    </div>
+                    <button class="btn-confirm-payment" id="confirmCredit">Confirmar Pagamento</button>
+                </div>
+                
+                <!-- Debit Card Payment Form -->
+                <div class="payment-form" id="debitForm">
+                    <div class="form-group">
+                        <label for="debitCardNumber">Número do Cartão</label>
+                        <input type="text" id="debitCardNumber" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="debitCardName">Nome no Cartão</label>
+                        <input type="text" id="debitCardName" placeholder="João da Silva">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="debitCardExpiry">Validade</label>
+                            <input type="text" id="debitCardExpiry" placeholder="MM/AA">
+                        </div>
+                        <div class="form-group">
+                            <label for="debitCardCvv">CVV</label>
+                            <input type="text" id="debitCardCvv" placeholder="123">
+                        </div>
+                    </div>
+                    <button class="btn-confirm-payment" id="confirmDebit">Confirmar Pagamento</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
@@ -680,8 +1439,79 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Compra Realizada com Sucesso!</h2>
+            <p>Obrigado por comprar na 69 Moda. Seu pedido foi confirmado e em breve você receberá um e-mail com os detalhes.</p>
+            <button class="modal-btn" id="closeSuccess">Continuar Comprando</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>69 MODA</h3>
+                <p>Moda contemporânea com design inovador. Expressão através do estilo.</p>
+            </div>
+            <div class="footer-column">
+                <h3>LINKS ÚTEIS</h3>
+                <ul>
+                    <li><a href="#" data-page="about">Sobre nós</a></li>
+                    <li><a href="#" data-page="collections">Nossas coleções</a></li>
+                    <li><a href="#">Trabalhe conosco</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>AJUDA</h3>
+                <ul>
+                    <li><a href="#" data-page="help">Central de ajuda</a></li>
+                    <li><a href="#">Trocas e devoluções</a></li>
+                    <li><a href="#">Entregas</a></li>
+                    <li><a href="#">Pagamentos</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>CONTATO</h3>
+                <ul>
+                    <li><a href="mailto:contato@69moda.com">contato@69moda.com</a></li>
+                    <li><a href="tel:11999999999">(11) 99999-9999</a></li>
+                    <li><a href="#" data-page="contact">São Paulo, SP</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 69 Moda. Todos os direitos reservados.
+        </div>
+    </footer>
+
     <script>
-        // Modal functionality
+        // Sample product data
+        const products = [
+            { id: 1, name: "Camiseta Essential", price: 89.90, image: "👕", description: "Camiseta básica de algodão 100%, perfeita para o dia a dia. Disponível em diversas cores." },
+            { id: 2, name: "Jeans Slim Fit", price: 159.90, image: "👖", description: "Jeans moderno com corte slim fit. Confortável e estiloso para qualquer ocasião." },
+            { id: 3, name: "Jaqueta Modern", price: 229.90, image: "🧥", description: "Jaqueta casual com design contemporâneo. Ideal para dias mais frescos." },
+            { id: 4, name: "Tênis Urban", price: 199.90, image: "👟", description: "Tênis casual com design urbano. Conforto e estilo para seu dia a dia." },
+            { id: 5, name: "Vestido Floral", price: 129.90, image: "👗", description: "Vestido leve com estampa floral. Perfeito para eventos casuais." },
+            { id: 6, name: "Moletom Comfort", price: 119.90, image: "🧦", description: "Moletom ultra confortável para dias relaxantes. Disponível em vários tons." },
+            { id: 7, name: "Camisa Social", price: 149.90, image: "👔", description: "Camisa social elegante para ocasiões formais. Tecido de alta qualidade." },
+            { id: 8, name: "Shorts Casual", price: 79.90, image: "🩳", description: "Shorts confortável para o verão. Estilo descontraído e moderno." },
+            { id: 9, name: "Blusa de Frio", price: 139.90, image: "🥼", description: "Blusa de frio com design moderno. Aquece sem abrir mão do estilo." },
+            { id: 10, name: "Saia Midi", price: 99.90, image: "👘", description: "Saia midi versátil para diversas ocasiões. Caimento perfeito." }
+        ];
+
+        // App State
+        let currentUser = null;
+        let cart = [];
+        let currentProduct = null;
+        let selectedSize = null;
+
+        // DOM Elements
         const loginBtn = document.getElementById('loginBtn');
         const signupBtn = document.getElementById('signupBtn');
         const loginModal = document.getElementById('loginModal');
@@ -690,75 +1520,506 @@
         const closeSignup = document.getElementById('closeSignup');
         const switchToSignup = document.getElementById('switchToSignup');
         const switchToLogin = document.getElementById('switchToLogin');
+        const userInfo = document.getElementById('userInfo');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeCheckout = document.getElementById('closeCheckout');
+        const productModal = document.getElementById('productModal');
+        const closeProductModal = document.getElementById('closeProductModal');
+        const modalProductImage = document.getElementById('modalProductImage');
+        const modalProductTitle = document.getElementById('modalProductTitle');
+        const modalProductPrice = document.getElementById('modalProductPrice');
+        const modalProductDescription = document.getElementById('modalProductDescription');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const buyNowBtn = document.getElementById('buyNowBtn');
+        const successModal = document.getElementById('successModal');
+        const closeSuccess = document.getElementById('closeSuccess');
+        const featuredProductsGrid = document.getElementById('featuredProducts');
+        const allProductsGrid = document.getElementById('allProducts');
+        const offerProductsGrid = document.getElementById('offerProducts');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const paymentForms = document.querySelectorAll('.payment-form');
+        const confirmPix = document.getElementById('confirmPix');
+        const confirmCredit = document.getElementById('confirmCredit');
+        const confirmDebit = document.getElementById('confirmDebit');
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('nav a, .footer-column a');
         
-        // Open login modal
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
+        // Initialize the app
+        function init() {
+            loadProducts();
+            setupEventListeners();
+            updateCartUI();
+            
+            // Check if user is logged in (from localStorage)
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserUI();
+            }
+            
+            // Check if there's cart data in localStorage
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        }
         
-        // Open signup modal
-        signupBtn.addEventListener('click', () => {
-            signupModal.style.display = 'flex';
-        });
+        // Load products into the grids
+        function loadProducts() {
+            // Featured products (first 4)
+            featuredProductsGrid.innerHTML = products.slice(0, 4).map(product => `
+                <div class="product-card" data-product="${product.id}">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">R$ ${product.price.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            // All products
+            allProductsGrid.innerHTML = products.map(product => `
+                <div class="product-card" data-product="${product.id}">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">R$ ${product.price.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Offer products (last 3 with discount)
+            offerProductsGrid.innerHTML = products.slice(-3).map(product => {
+                const discountPrice = product.price * 0.8; // 20% discount
+                return `
+                <div class="product-card" data-product="${product.id}">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price"><span style="text-decoration: line-through; color: var(--gray); margin-right: 0.5rem;">R$ ${product.price.toFixed(2)}</span> R$ ${discountPrice.toFixed(2)}</p>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
         
-        // Close modals
-        closeLogin.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-        
-        closeSignup.addEventListener('click', () => {
-            signupModal.style.display = 'none';
-        });
-        
-        // Switch between modals
-        switchToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            signupModal.style.display = 'flex';
-        });
-        
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            signupModal.style.display = 'none';
-            loginModal.style.display = 'flex';
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
+        // Set up event listeners
+        function setupEventListeners() {
+            // Modal functionality
+            loginBtn.addEventListener('click', () => {
+                loginModal.style.display = 'flex';
+            });
+            
+            signupBtn.addEventListener('click', () => {
+                signupModal.style.display = 'flex';
+            });
+            
+            closeLogin.addEventListener('click', () => {
                 loginModal.style.display = 'none';
-            }
-            if (e.target === signupModal) {
+            });
+            
+            closeSignup.addEventListener('click', () => {
                 signupModal.style.display = 'none';
-            }
-        });
+            });
+            
+            switchToSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'flex';
+            });
+            
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                signupModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === signupModal) {
+                    signupModal.style.display = 'none';
+                }
+                if (e.target === productModal) {
+                    productModal.style.display = 'none';
+                }
+                if (e.target === checkoutModal) {
+                    checkoutModal.style.display = 'none';
+                }
+                if (e.target === successModal) {
+                    successModal.style.display = 'none';
+                }
+            });
+            
+            // Form submission
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                // Simple validation
+                if (email && password) {
+                    currentUser = {
+                        name: email.split('@')[0],
+                        email: email,
+                        avatar: email.charAt(0).toUpperCase()
+                    };
+                    
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUserUI();
+                    loginModal.style.display = 'none';
+                    alert('Login realizado com sucesso!');
+                }
+            });
+            
+            document.getElementById('signupForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const fullname = document.getElementById('fullname').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                // Simple validation
+                if (fullname && email && password && password === confirmPassword) {
+                    currentUser = {
+                        name: fullname,
+                        email: email,
+                        avatar: fullname.charAt(0).toUpperCase()
+                    };
+                    
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUserUI();
+                    signupModal.style.display = 'none';
+                    alert('Cadastro realizado com sucesso!');
+                } else if (password !== confirmPassword) {
+                    alert('As senhas não coincidem!');
+                }
+            });
+            
+            // Cart functionality
+            cartIcon.addEventListener('click', () => {
+                cartSidebar.classList.add('open');
+            });
+            
+            closeCart.addEventListener('click', () => {
+                cartSidebar.classList.remove('open');
+            });
+            
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Seu carrinho está vazio!');
+                    return;
+                }
+                
+                if (!currentUser) {
+                    alert('Por favor, faça login para finalizar a compra!');
+                    loginModal.style.display = 'flex';
+                    return;
+                }
+                
+                cartSidebar.classList.remove('open');
+                checkoutModal.style.display = 'flex';
+                // Select PIX by default
+                selectPaymentMethod('pix');
+            });
+            
+            closeCheckout.addEventListener('click', () => {
+                checkoutModal.style.display = 'none';
+            });
+            
+            // Product functionality
+            document.addEventListener('click', (e) => {
+                const productCard = e.target.closest('.product-card');
+                if (productCard) {
+                    const productId = parseInt(productCard.dataset.product);
+                    openProductModal(productId);
+                }
+            });
+            
+            closeProductModal.addEventListener('click', () => {
+                productModal.style.display = 'none';
+            });
+            
+            // Size selection
+            document.querySelectorAll('.size').forEach(size => {
+                size.addEventListener('click', () => {
+                    document.querySelectorAll('.size').forEach(s => s.classList.remove('selected'));
+                    size.classList.add('selected');
+                    selectedSize = size.dataset.size;
+                });
+            });
+            
+            addToCartBtn.addEventListener('click', () => {
+                if (!selectedSize) {
+                    alert('Por favor, selecione um tamanho!');
+                    return;
+                }
+                
+                addToCart(currentProduct, selectedSize);
+                productModal.style.display = 'none';
+                alert('Produto adicionado ao carrinho!');
+            });
+            
+            buyNowBtn.addEventListener('click', () => {
+                if (!selectedSize) {
+                    alert('Por favor, selecione um tamanho!');
+                    return;
+                }
+                
+                addToCart(currentProduct, selectedSize);
+                productModal.style.display = 'none';
+                cartSidebar.classList.add('open');
+            });
+            
+            // Payment methods
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', () => {
+                    const methodName = method.dataset.method;
+                    selectPaymentMethod(methodName);
+                });
+            });
+            
+            // Confirm payment buttons
+            confirmPix.addEventListener('click', () => {
+                processPayment('pix');
+            });
+            
+            confirmCredit.addEventListener('click', () => {
+                processPayment('credit');
+            });
+            
+            confirmDebit.addEventListener('click', () => {
+                processPayment('debit');
+            });
+            
+            closeSuccess.addEventListener('click', () => {
+                successModal.style.display = 'none';
+                cart = [];
+                updateCartUI();
+                localStorage.setItem('cart', JSON.stringify(cart));
+            });
+            
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    if (pageId) {
+                        showPage(pageId);
+                    }
+                });
+            });
+            
+            // FAQ functionality
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.parentElement;
+                    faqItem.classList.toggle('active');
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.padding = '0.5rem 2rem';
+                    header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.padding = '1rem 2rem';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        }
         
-        // Form submission
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Here you would normally send the data to a server
-            alert('Login realizado com sucesso!');
-            loginModal.style.display = 'none';
-        });
-        
-        document.getElementById('signupForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Here you would normally send the data to a server
-            alert('Cadastro realizado com sucesso!');
-            signupModal.style.display = 'none';
-        });
-        
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.padding = '0.5rem 2rem';
-                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        // Update user UI
+        function updateUserUI() {
+            if (currentUser) {
+                userInfo.style.display = 'flex';
+                userName.textContent = currentUser.name;
+                userAvatar.textContent = currentUser.avatar;
+                loginBtn.style.display = 'none';
+                signupBtn.style.display = 'none';
             } else {
-                header.style.padding = '1rem 2rem';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                userInfo.style.display = 'none';
+                loginBtn.style.display = 'block';
+                signupBtn.style.display = 'block';
             }
-        });
+        }
+        
+        // Update cart UI
+        function updateCartUI() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 2rem;">Seu carrinho está vazio</p>';
+                cartTotal.textContent = 'R$ 0,00';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">${item.image}</div>
+                    <div class="cart-item-info">
+                        <h3 class="cart-item-name">${item.name}</h3>
+                        <p class="cart-item-price">R$ ${item.price.toFixed(2)}</p>
+                        <p>Tamanho: ${item.size}</p>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.dataset.id);
+                    const action = btn.dataset.action;
+                    updateCartQuantity(productId, action);
+                });
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `R$ ${total.toFixed(2)}`;
+            
+            // Update installments in checkout
+            updateInstallments(total);
+        }
+        
+        // Update cart quantity
+        function updateCartQuantity(productId, action) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                if (action === 'increase') {
+                    cart[itemIndex].quantity += 1;
+                } else if (action === 'decrease') {
+                    cart[itemIndex].quantity -= 1;
+                    
+                    if (cart[itemIndex].quantity === 0) {
+                        cart.splice(itemIndex, 1);
+                    }
+                }
+                
+                updateCartUI();
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }
+        
+        // Add product to cart
+        function addToCart(product, size) {
+            const existingItem = cart.find(item => item.id === product.id && item.size === size);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    size: size,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Open product modal
+        function openProductModal(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (currentProduct) {
+                modalProductImage.textContent = currentProduct.image;
+                modalProductTitle.textContent = currentProduct.name;
+                modalProductPrice.textContent = `R$ ${currentProduct.price.toFixed(2)}`;
+                modalProductDescription.textContent = currentProduct.description;
+                
+                // Reset size selection
+                document.querySelectorAll('.size').forEach(s => s.classList.remove('selected'));
+                selectedSize = null;
+                
+                productModal.style.display = 'flex';
+            }
+        }
+        
+        // Select payment method
+        function selectPaymentMethod(method) {
+            paymentMethods.forEach(m => m.classList.remove('selected'));
+            paymentForms.forEach(f => f.classList.remove('active'));
+            
+            document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+            document.getElementById(`${method}Form`).classList.add('active');
+        }
+        
+        // Update installments in checkout
+        function updateInstallments(total) {
+            const installmentsSelect = document.getElementById('cardInstallments');
+            installmentsSelect.innerHTML = '';
+            
+            for (let i = 1; i <= 12; i++) {
+                const installmentValue = total / i;
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${i}x de R$ ${installmentValue.toFixed(2)}`;
+                installmentsSelect.appendChild(option);
+            }
+        }
+        
+        // Process payment
+        function processPayment(method) {
+            if (!currentUser) {
+                alert('Por favor, faça login para finalizar a compra!');
+                return;
+            }
+            
+            // Simple validation for card payments
+            if (method === 'credit' || method === 'debit') {
+                const cardNumber = document.getElementById(method === 'credit' ? 'cardNumber' : 'debitCardNumber').value;
+                const cardName = document.getElementById(method === 'credit' ? 'cardName' : 'debitCardName').value;
+                const cardExpiry = document.getElementById(method === 'credit' ? 'cardExpiry' : 'debitCardExpiry').value;
+                const cardCvv = document.getElementById(method === 'credit' ? 'cardCvv' : 'debitCardCvv').value;
+                
+                if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
+                    alert('Por favor, preencha todos os campos do cartão!');
+                    return;
+                }
+            }
+            
+            checkoutModal.style.display = 'none';
+            successModal.style.display = 'flex';
+        }
+        
+        // Show page
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                    window.scrollTo(0, 0);
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initialize the app
+        init();
     </script>
 </body>
 </html>
