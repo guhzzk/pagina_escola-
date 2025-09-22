@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinto Cu Butecinha - Entre no Discord!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Eternal Cosplay Saga - RPG de Mesa Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,12 +13,13 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
-            color: #ffffff;
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2e, #0f1a2e);
+            color: #e0e0e0;
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
             background-attachment: fixed;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
         }
         
         .container {
@@ -27,74 +28,95 @@
             padding: 2rem;
         }
         
-        /* Header Estilizado */
+        /* Header Épico */
         .header {
             text-align: center;
-            padding: 3rem 1rem;
-            background: rgba(0, 0, 0, 0.7);
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
             border-radius: 20px;
             margin-bottom: 3rem;
-            border: 2px solid #ff6b6b;
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+            border: 3px solid #8B4513;
+            box-shadow: 0 0 40px rgba(139, 69, 19, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #8B4513, #D2691E, #8B4513);
         }
         
         .title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2.5rem;
-            color: #ff6b6b;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #D4AF37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
             margin-bottom: 1rem;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(255, 107, 107, 0.8), 0 0 30px rgba(255, 107, 107, 0.6);
-            }
+            background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
-            font-size: 1.3rem;
-            color: #4ecdc4;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.5rem;
+            color: #8B4513;
             margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
         }
         
         /* Card Principal */
-        .discord-card {
-            background: rgba(0, 0, 0, 0.8);
+        .main-card {
+            background: rgba(0, 0, 0, 0.9);
             border-radius: 15px;
             padding: 3rem;
             text-align: center;
-            border: 2px solid #4ecdc4;
-            box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+            border: 2px solid #8B4513;
+            box-shadow: 0 0 30px rgba(139, 69, 19, 0.3);
             margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .main-card::before {
+            content: '⚔️';
+            font-size: 4rem;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0a0a0a;
+            padding: 0 20px;
         }
         
         .discord-icon {
-            font-size: 5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
-            animation: bounce 2s infinite;
+            animation: float 3s ease-in-out infinite;
         }
         
-        @keyframes bounce {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
         
-        .discord-card h2 {
-            color: #4ecdc4;
-            font-size: 2rem;
+        .main-card h2 {
+            color: #D4AF37;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Cinzel', serif;
         }
         
-        .discord-card p {
-            font-size: 1.1rem;
+        .main-card p {
+            font-size: 1.2rem;
             margin-bottom: 2rem;
             color: #cccccc;
+            line-height: 1.8;
         }
         
         /* Botão Discord */
@@ -102,214 +124,295 @@
             display: inline-block;
             background: linear-gradient(45deg, #5865F2, #7289da);
             color: white;
-            padding: 1.2rem 2.5rem;
+            padding: 1.3rem 3rem;
             font-size: 1.3rem;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: bold;
             transition: all 0.3s ease;
-            border: none;
+            border: 2px solid #D4AF37;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
-            font-family: 'Press Start 2P', cursive;
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.4);
+            font-family: 'MedievalSharp', cursive;
         }
         
         .discord-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+            box-shadow: 0 8px 30px rgba(88, 101, 242, 0.6);
             background: linear-gradient(45deg, #7289da, #5865F2);
         }
         
-        /* Features Grid */
+        /* Sistema de Recursos */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
         
         .feature-card {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2.5rem;
+            border-radius: 12px;
             text-align: center;
-            border: 1px solid #ffd166;
-            transition: transform 0.3s ease;
+            border: 1px solid #8B4513;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: #ff6b6b;
+            border-color: #D4AF37;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
         }
         
         .feature-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #ffd166;
+            color: #D4AF37;
         }
         
         .feature-card h3 {
-            color: #ffd166;
+            color: #D4AF37;
             margin-bottom: 1rem;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            font-family: 'Cinzel', serif;
         }
         
         .feature-card p {
             color: #cccccc;
+            line-height: 1.6;
         }
         
-        /* Countdown */
-        .countdown {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 2rem;
+        /* Seção de Dados */
+        .dice-section {
+            background: rgba(139, 69, 19, 0.1);
+            padding: 3rem;
             border-radius: 15px;
+            margin: 3rem 0;
+            border: 2px solid #8B4513;
             text-align: center;
+        }
+        
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
             margin: 2rem 0;
-            border: 1px solid #ff6b6b;
         }
         
-        .countdown h3 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
+        .dice {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
+            font-weight: bold;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+            animation: dice-roll 2s infinite;
         }
         
-        .timer {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2rem;
-            color: #4ecdc4;
+        @keyframes dice-roll {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+        }
+        
+        /* Eventos */
+        .events-section {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            border: 2px solid #8B4513;
+        }
+        
+        .event-item {
+            background: rgba(139, 69, 19, 0.2);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .event-item h4 {
+            color: #D4AF37;
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             margin-top: 3rem;
-            border-top: 1px solid #333;
-            color: #666;
+            border-top: 2px solid #8B4513;
+            color: #8B4513;
+            font-family: 'MedievalSharp', cursive;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .title {
-                font-size: 1.8rem;
+                font-size: 2.5rem;
             }
             
-            .discord-card {
+            .main-card {
                 padding: 2rem;
             }
             
-            .discord-card h2 {
-                font-size: 1.5rem;
+            .main-card h2 {
+                font-size: 1.8rem;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .timer {
-                font-size: 1.5rem;
+            .dice-container {
+                gap: 1rem;
+            }
+            
+            .dice {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        <!-- Header Épico -->
         <div class="header">
-            <h1 class="title">🐔 PINTO CU BUTECINHA 🍻</h1>
-            <p class="subtitle">O server mais zika do Discord! Entra aí, cumpadi!</p>
+            <h1 class="title">ETERNAL COSPLAY SAGA</h1>
+            <p class="subtitle">Onde as lendas ganham vida através do Roleplay</p>
+            <p>Server de RPG de Mesa Online com Bots Avançados</p>
         </div>
         
-        <!-- Card Principal do Discord -->
-        <div class="discord-card">
-            <div class="discord-icon">🎮</div>
-            <h2>ENTRA NO NOSSO SERVER!</h2>
-            <p>Zoeira garantida, conversa boa e muita risada! Não fica de fora dessa parada!</p>
-            <a href="https://discord.gg/JV34WZxK" target="_blank" class="discord-btn">
-                🚀 ENTRAR AGORA 🚀
+        <!-- Card Principal -->
+        <div class="main-card">
+            <div class="discord-icon">🎭</div>
+            <h2>JUNTE-SE À NOSSA AVENTURA ÉPICA!</h2>
+            <p>Um universo onde a imaginação não tem limites. Com mestres dedicados, bots de dados avançados e uma comunidade apaixonada por RPG.</p>
+            <a href="https://discord.gg/7PPvrCy3" target="_blank" class="discord-btn">
+                🏰 ENTRAR NO CASTELO 🏰
             </a>
         </div>
         
-        <!-- Countdown (opcional) -->
-        <div class="countdown">
-            <h3>🚨 EVENTO ESPECIAL ROLLANDO! 🚨</h3>
-            <div class="timer" id="timer">24/7 ONLINE</div>
-            <p>Zoeira 24 horas por dia, 7 dias por semana!</p>
+        <!-- Sistema de Dados -->
+        <div class="dice-section">
+            <h2>🎲 SISTEMA DE DADOS AVANÇADO</h2>
+            <p>Bots especializados para rolagens complexas e automáticas</p>
+            <div class="dice-container">
+                <div class="dice">D4</div>
+                <div class="dice">D6</div>
+                <div class="dice">D8</div>
+                <div class="dice">D10</div>
+                <div class="dice">D12</div>
+                <div class="dice">D20</div>
+                <div class="dice">D100</div>
+            </div>
         </div>
         
-        <!-- Features -->
+        <!-- Recursos do Server -->
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>ZOERA DE QUALIDADE</h3>
-                <p>Zoeira first class, só as melhores piadas e memes quentinhos</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎪</div>
-                <h3>COMUNIDADE DAORA</h3>
-                <p>Gente bonita e gente feia, mas todo mundo se dá bem!</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎵</div>
-                <h3>BOT DE MÚSICA</h3>
-                <p>Cola seu som que o bot toca! Só sucesso!</p>
+                <div class="feature-icon">🤖</div>
+                <h3>BOT SPAWNER DE CRIATURAS</h3>
+                <p>Sistema automático que spawna monstros e NPCs durante as sessões, gerenciado pelos mestres</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🎭</div>
-                <h3>ROLEPLAY OPcional</h3>
-                <p>Se quiser fazer RP, pode! Se não quiser, também pode!</p>
+                <h3>MESTRES DEDICADOS</h3>
+                <p>Equipe de mestres experientes prontos para narrar aventuras épicas e criar histórias memoráveis</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🏆</div>
-                <h3>EVENTOS MANEIROS</h3>
-                <p>Game nights, karaokê e muito mais!</p>
+                <div class="feature-icon">📚</div>
+                <h3>MÚLTIPLOS SISTEMAS</h3>
+                <p>D&D, Tormenta, Ordem Paranormal e sistemas customizados. Temos espaço para todos os estilos!</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🤝</div>
-                <h3>RESPEITO É TUDO</h3>
-                <p>Zoeira sim, desrespeito não! Aqui é paz e amor</p>
+                <div class="feature-icon">🎪</div>
+                <h3>EVENTOS TEMÁTICOS</h3>
+                <p>Eventos especiais de anime, cenários únicos e campanhas temáticas mensais</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>COMUNIDADE ATIVA</h3>
+                <p>Mais de 500 membros apaixonados por RPG, sempre dispostos a ajudar novos jogadores</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>COSPLAY E ROLEPLAY</h3>
+                <p>Encorajamos a interpretação de personagens e a imersão total no universo do jogo</p>
+            </div>
+        </div>
+        
+        <!-- Eventos em Destaque -->
+        <div class="events-section">
+            <h2 style="text-align: center; color: #D4AF37; margin-bottom: 2rem; font-family: 'Cinzel', serif;">📅 EVENTOS EM DESTAQUE</h2>
+            
+            <div class="event-item">
+                <h4>🏆 Torneio Mensal de D&D</h4>
+                <p>Campanha competitiva com premiação para os melhores grupos</p>
+            </div>
+            
+            <div class="event-item">
+                <h4>🎭 Semana do Cosplay</h4>
+                <p>Evento especial com foco em interpretação e caracterização de personagens</p>
+            </div>
+            
+            <div class="event-item">
+                <h4>🤝 Noite do Calouro</h4>
+                <p>Sessões especiais para novos jogadores aprenderem os sistemas</p>
+            </div>
+            
+            <div class="event-item">
+                <h4>🎲 Campeonato de Dados</h4>
+                <p>Competição de rolagens com desafios e recompensas especiais</p>
             </div>
         </div>
         
         <!-- Call to Action Final -->
-        <div class="discord-card">
-            <h2>💀 TÁ ESPERANDO O QUÊ? 💀</h2>
-            <p>Clique no botão abaixo e vem fazer parte da zoeira!</p>
-            <a href="https://discord.gg/JV34WZxK" target="_blank" class="discord-btn">
-                🍻 BORA PRA BUTECA! 🍻
+        <div class="main-card">
+            <h2>⚔️ SUA AVENTURA COMEÇA AQUI! ⚔️</h2>
+            <p>Junte-se a nós e escreva sua própria lenda no Eternal Cosplay Saga</p>
+            <a href="https://discord.gg/7PPvrCy3" target="_blank" class="discord-btn">
+                📖 INICIAR JORNADA 📖
             </a>
         </div>
         
         <!-- Footer -->
         <div class="footer">
-            <p>🐔 Pinto Cu Butecinha © 2024 - Zoeira profissional desde sempre 🍻</p>
-            <p>Link do server: https://discord.gg/JV34WZxK</p>
+            <p>🐉 Eternal Cosplay Saga © 2024 - O maior server de RPG de mesa online 🏹</p>
+            <p>📜 Link do reino: https://discord.gg/7PPvrCy3</p>
+            <p>🎭 Onde cada jogador é o herói de sua própria história</p>
         </div>
     </div>
 
     <script>
-        // Efeito de digitação no título
+        // Efeito de rolagem de dados aleatória
         document.addEventListener('DOMContentLoaded', function() {
-            const titles = document.querySelectorAll('.title');
-            titles.forEach(title => {
-                const text = title.textContent;
-                title.textContent = '';
-                let i = 0;
-                const typeWriter = () => {
-                    if (i < text.length) {
-                        title.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, 100);
-                    }
-                };
-                typeWriter();
-            });
+            const dice = document.querySelectorAll('.dice');
+            
+            setInterval(() => {
+                dice.forEach(die => {
+                    const sides = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D100'];
+                    const randomSide = sides[Math.floor(Math.random() * sides.length)];
+                    die.textContent = randomSide;
+                });
+            }, 2000);
         });
     </script>
 </body>
