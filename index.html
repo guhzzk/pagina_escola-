@@ -1,35 +1,316 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Pika das Galáxias</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Pinto Cu Butecinha - Entre no Discord!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header Estilizado */
+        .header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 107, 107, 0.8), 0 0 30px rgba(255, 107, 107, 0.6);
+            }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #4ecdc4;
+            margin-bottom: 2rem;
+        }
+        
+        /* Card Principal */
+        .discord-card {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid #4ecdc4;
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+            margin-bottom: 3rem;
+        }
+        
+        .discord-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .discord-card h2 {
+            color: #4ecdc4;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .discord-card p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+        
+        /* Botão Discord */
+        .discord-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #5865F2, #7289da);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+            background: linear-gradient(45deg, #7289da, #5865F2);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #ffd166;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b6b;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffd166;
+        }
+        
+        .feature-card h3 {
+            color: #ffd166;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #cccccc;
+        }
+        
+        /* Countdown */
+        .countdown {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            border: 1px solid #ff6b6b;
+        }
+        
+        .countdown h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .timer {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            color: #4ecdc4;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .discord-card {
+                padding: 2rem;
+            }
+            
+            .discord-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timer {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 class="titulo">Calculadora Pika das Galáxias</h1>
-    <div class="calculadora">
-        <input type="text" id="resultado" disabled>
-        <div class="botões">
-            <button onclick="limpar()">C</button>
-            <button onclick="setOperacao('÷')">÷</button>
-            <button onclick="setOperacao('x')">x</button>
-            <button onclick="setOperacao('-')">-</button>
-            <button onclick="adicionar('7')">7</button>
-            <button onclick="adicionar('8')">8</button>
-            <button onclick="adicionar('9')">9</button>
-            <button onclick="setOperacao('+')">+</button>
-            <button onclick="adicionar('4')">4</button>
-            <button onclick="adicionar('5')">5</button>
-            <button onclick="adicionar('6')">6</button>
-            <button onclick="calcular()" class="igual">=</button>
-            <button onclick="adicionar('1')">1</button>
-            <button onclick="adicionar('2')">2</button>
-            <button onclick="adicionar('3')">3</button>
-            <button onclick="adicionar('0')">0</button>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">🐔 PINTO CU BUTECINHA 🍻</h1>
+            <p class="subtitle">O server mais zika do Discord! Entra aí, cumpadi!</p>
+        </div>
+        
+        <!-- Card Principal do Discord -->
+        <div class="discord-card">
+            <div class="discord-icon">🎮</div>
+            <h2>ENTRA NO NOSSO SERVER!</h2>
+            <p>Zoeira garantida, conversa boa e muita risada! Não fica de fora dessa parada!</p>
+            <a href="https://discord.gg/JV34WZxK" target="_blank" class="discord-btn">
+                🚀 ENTRAR AGORA 🚀
+            </a>
+        </div>
+        
+        <!-- Countdown (opcional) -->
+        <div class="countdown">
+            <h3>🚨 EVENTO ESPECIAL ROLLANDO! 🚨</h3>
+            <div class="timer" id="timer">24/7 ONLINE</div>
+            <p>Zoeira 24 horas por dia, 7 dias por semana!</p>
+        </div>
+        
+        <!-- Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>ZOERA DE QUALIDADE</h3>
+                <p>Zoeira first class, só as melhores piadas e memes quentinhos</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎪</div>
+                <h3>COMUNIDADE DAORA</h3>
+                <p>Gente bonita e gente feia, mas todo mundo se dá bem!</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>BOT DE MÚSICA</h3>
+                <p>Cola seu som que o bot toca! Só sucesso!</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎭</div>
+                <h3>ROLEPLAY OPcional</h3>
+                <p>Se quiser fazer RP, pode! Se não quiser, também pode!</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>EVENTOS MANEIROS</h3>
+                <p>Game nights, karaokê e muito mais!</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>RESPEITO É TUDO</h3>
+                <p>Zoeira sim, desrespeito não! Aqui é paz e amor</p>
+            </div>
+        </div>
+        
+        <!-- Call to Action Final -->
+        <div class="discord-card">
+            <h2>💀 TÁ ESPERANDO O QUÊ? 💀</h2>
+            <p>Clique no botão abaixo e vem fazer parte da zoeira!</p>
+            <a href="https://discord.gg/JV34WZxK" target="_blank" class="discord-btn">
+                🍻 BORA PRA BUTECA! 🍻
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>🐔 Pinto Cu Butecinha © 2024 - Zoeira profissional desde sempre 🍻</p>
+            <p>Link do server: https://discord.gg/JV34WZxK</p>
         </div>
     </div>
-    <p class="creditos">ib:fwck</p>
-    <script src="script.js"></script>
+
+    <script>
+        // Efeito de digitação no título
+        document.addEventListener('DOMContentLoaded', function() {
+            const titles = document.querySelectorAll('.title');
+            titles.forEach(title => {
+                const text = title.textContent;
+                title.textContent = '';
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        title.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                };
+                typeWriter();
+            });
+        });
+    </script>
 </body>
 </html>
