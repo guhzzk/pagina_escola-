@@ -612,58 +612,10 @@
                 opacity: 0;
             }
         }
-
-        /* Loading CORRIGIDO */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(138, 43, 226, 0.3);
-            border-left: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Garantir que o conteúdo fique escondido durante o loading */
-        body:not(.loaded) > *:not(.loading) {
-            opacity: 0;
-        }
-
-        body.loaded > *:not(.loading) {
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
     </style>
 </head>
 <body>
-    <!-- Loading Screen CORRIGIDA -->
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <div style="margin-top: 20px; font-size: 1.2rem; color: var(--primary);">Carregando Eternal Cosplay Saga...</div>
-    </div>
+    <!-- REMOVIDA A TELA DE LOADING BUGADA -->
 
     <!-- Partículas de fundo -->
     <div class="particles" id="particles"></div>
@@ -873,18 +825,7 @@
     </footer>
 
     <script>
-        // Loading screen CORRIGIDA - SIMPLES E FUNCIONAL
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loading = document.getElementById('loading');
-                loading.classList.add('hidden');
-                
-                // Remover completamente após a animação
-                setTimeout(function() {
-                    loading.remove();
-                }, 500);
-            }, 1500); // 1.5 segundos de loading
-        });
+        // CÓDIGO SIMPLIFICADO - SEM LOADING BUGADO
 
         // Gerar partículas de fundo
         function createParticles() {
