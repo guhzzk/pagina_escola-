@@ -60,6 +60,11 @@
             height: 50px;
             border-radius: 50%;
             border: 2px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(10deg) scale(1.1);
         }
 
         .logo h1 {
@@ -115,6 +120,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .cta-button:hover {
@@ -164,6 +172,7 @@
             font-size: 1.2rem;
             margin-bottom: 2rem;
             line-height: 1.6;
+            opacity: 0.9;
         }
 
         .hero-buttons {
@@ -242,6 +251,7 @@
         .about-text p {
             margin-bottom: 1.5rem;
             line-height: 1.6;
+            font-size: 1.1rem;
         }
 
         .about-image {
@@ -252,9 +262,14 @@
 
         .about-image img {
             max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--primary);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 3px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
         }
 
         /* Recursos */
@@ -266,37 +281,66 @@
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 2rem;
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border-color: var(--primary);
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
         }
 
         .feature-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            opacity: 0.9;
         }
 
         /* Dados Interativos */
         .dice-section {
             text-align: center;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             padding: 4rem 2rem;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-top: 2rem;
+            border: 2px solid rgba(138, 43, 226, 0.3);
         }
 
         .dice-container {
@@ -310,24 +354,43 @@
         .dice {
             width: 80px;
             height: 80px;
-            background: var(--light);
-            border-radius: 10px;
+            background: linear-gradient(45deg, var(--light), #e0e0e0);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--dark);
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .dice:hover::before {
+            transform: translateX(100%);
         }
 
         .dice:hover {
-            transform: scale(1.1);
-            background: var(--accent);
+            transform: scale(1.15) rotate(5deg);
+            background: linear-gradient(45deg, var(--accent), #ff8e8e);
             color: white;
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
         }
 
         .dice.rolling {
@@ -341,58 +404,96 @@
         }
 
         .dice-result {
-            font-size: 1.5rem;
-            margin-top: 1rem;
-            min-height: 2rem;
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
+            min-height: 3rem;
+            font-weight: bold;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            min-width: 200px;
         }
 
         /* Eventos */
         .events {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
         .event-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .event-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .event-image {
-            height: 200px;
+            height: 220px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-image {
+            transform: scale(1.05);
+        }
+
+        .event-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(transparent, rgba(26, 26, 46, 0.9));
         }
 
         .event-content {
-            padding: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .event-content h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             color: var(--accent);
+            font-size: 1.4rem;
         }
 
         .event-date {
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-date::before {
+            content: '📅';
+            font-size: 1.2rem;
         }
 
         /* Footer */
         footer {
             background: var(--darker);
-            padding: 3rem 5%;
+            padding: 4rem 5% 2rem;
             text-align: center;
             border-top: 2px solid var(--primary);
+            margin-top: 4rem;
         }
 
         .footer-content {
@@ -406,23 +507,31 @@
 
         .social-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .social-links a {
             color: var(--text);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .social-links a:hover {
             color: var(--accent);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .copyright {
             margin-top: 2rem;
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
 
         /* Responsividade */
@@ -442,6 +551,16 @@
 
             .about-content {
                 flex-direction: column;
+            }
+
+            .dice-container {
+                gap: 1rem;
+            }
+
+            .dice {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
             }
         }
 
@@ -474,7 +593,7 @@
             }
         }
 
-        /* === EFEITO DE PARTÍCULAS NO MOUSE (ADICIONADO) === */
+        /* === EFEITO DE PARTÍCULAS NO MOUSE === */
         .mouse-particle {
             position: fixed;
             pointer-events: none;
@@ -493,9 +612,43 @@
                 opacity: 0;
             }
         }
+
+        /* Loading */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(138, 43, 226, 0.3);
+            border-left: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Partículas de fundo -->
     <div class="particles" id="particles"></div>
 
@@ -503,8 +656,7 @@
     <header>
         <nav>
             <div class="logo">
-                <!-- Imagem placeholder - substitua pelo seu logo -->
-                <div style="width: 50px; height: 50px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border: 2px solid var(--primary);">ECS</div>
+                <img src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=100&h=100&fit=crop&crop=center&auto=format" alt="Eternal Cosplay Saga Logo">
                 <h1>Eternal Cosplay Saga</h1>
             </div>
             <div class="nav-links">
@@ -514,7 +666,9 @@
                 <a href="#events">Eventos</a>
                 <a href="#join">Participar</a>
             </div>
-            <a href="https://discord.gg/7PPvrCy3" class="cta-button" target="_blank">Entrar no Discord</a>
+            <a href="https://discord.gg/7PPvrCy3" class="cta-button" target="_blank">
+                <i class="fab fa-discord"></i> Entrar no Discord
+            </a>
         </nav>
     </header>
 
@@ -531,7 +685,7 @@
                     <i class="fab fa-discord"></i> Entrar no Servidor
                 </a>
                 <a href="#about" class="cta-button" style="background: transparent; border: 2px solid var(--primary);">
-                    Saiba Mais
+                    <i class="fas fa-scroll"></i> Saiba Mais
                 </a>
             </div>
         </div>
@@ -545,12 +699,12 @@
                 <p>O Eternal Cosplay Saga é mais do que um simples servidor de Discord para RPG de mesa. É um universo completo onde jogadores podem mergulhar em aventuras épicas, interpretar personagens únicos e fazer parte de uma comunidade vibrante.</p>
                 <p>Nossos mestres de mesa são experientes e dedicados, garantindo narrativas envolventes e desafios emocionantes. Com bots especializados, conseguimos criar uma experiência dinâmica onde criaturas aparecem de forma aleatória, tornando cada sessão única.</p>
                 <p>Além das campanhas de RPG, organizamos eventos regulares com temas de anime, cosplay e muito mais. Se você é fã de cultura pop e RPG, encontrará seu lugar aqui!</p>
+                <a href="https://discord.gg/7PPvrCy3" class="cta-button" style="margin-top: 1rem;">
+                    <i class="fas fa-users"></i> Conhecer a Comunidade
+                </a>
             </div>
             <div class="about-image">
-                <!-- Imagem placeholder -->
-                <div style="width: 100%; height: 300px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; border: 2px solid var(--primary);">
-                    Imagem da Mesa de RPG
-                </div>
+                <img src="https://images.unsplash.com/photo-1549056572-75914d6d7e1a?w=600&h=400&fit=crop&auto=format" alt="Mesa de RPG com amigos">
             </div>
         </div>
     </section>
@@ -561,45 +715,45 @@
         <div class="features">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-dragon"></i>
+                    <i class="fas fa-robot"></i>
                 </div>
                 <h3>Bots de RPG Avançados</h3>
-                <p>Sistema automatizado para spawnar criaturas, rolagem de dados e gerenciamento de campanhas.</p>
+                <p>Sistema automatizado para spawnar criaturas, rolagem de dados, gerenciamento de campanhas e efeitos visuais dinâmicos.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-crown"></i>
                 </div>
                 <h3>Mestres Dedicados</h3>
-                <p>Nossa equipe de mestres experientes garante narrativas envolventes e sessões memoráveis.</p>
+                <p>Equipe de mestres experientes que criam narrativas envolventes e sessões memoráveis para todos os jogadores.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-star"></i>
                 </div>
                 <h3>Eventos Regulares</h3>
-                <p>Eventos temáticos de anime, torneios, noites de cosplay e muito mais.</p>
+                <p>Eventos temáticos de anime, torneios épicos, noites de cosplay e missões especiais semanais.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>Comunidade Ativa</h3>
-                <p>Centenas de membros ativos sempre dispostos a ajudar e jogar juntos.</p>
+                <p>Centenas de membros ativos sempre dispostos a ajudar, jogar juntos e compartilhar experiências.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-theater-masks"></i>
+                    <i class="fas fa-mask"></i>
                 </div>
                 <h3>Sistema de Cosplay</h3>
-                <p>Integração única de cosplay com RPG, permitindo interpretação de personagens famosos.</p>
+                <p>Integração única de cosplay com RPG, permitindo interpretação de personagens famosos de anime e games.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-award"></i>
+                    <i class="fas fa-trophy"></i>
                 </div>
                 <h3>Sistema de Recompensas</h3>
-                <p>Ganhe pontos, itens e reconhecimento por sua participação e conquistas.</p>
+                <p>Ganhe pontos, itens raros, títulos exclusivos e reconhecimento por suas conquistas e participação.</p>
             </div>
         </div>
     </section>
@@ -608,7 +762,7 @@
     <section id="dice">
         <h2 class="section-title">Rolagem de Dados</h2>
         <div class="dice-section">
-            <p>Teste nossa rolagem de dados interativa! Clique em um dado para rolar.</p>
+            <p style="font-size: 1.3rem; margin-bottom: 1rem;">Teste nossa rolagem de dados interativa! Clique em um dado para rolar e testar sua sorte.</p>
             <div class="dice-container">
                 <div class="dice" data-sides="4">D4</div>
                 <div class="dice" data-sides="6">D6</div>
@@ -617,7 +771,7 @@
                 <div class="dice" data-sides="12">D12</div>
                 <div class="dice" data-sides="20">D20</div>
             </div>
-            <div class="dice-result" id="diceResult"></div>
+            <div class="dice-result" id="diceResult">Clique em um dado para rolar!</div>
         </div>
     </section>
 
@@ -626,33 +780,27 @@
         <h2 class="section-title">Próximos Eventos</h2>
         <div class="events">
             <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(45deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                    Torneio de Duelos Mágicos
-                </div>
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=300&fit=crop&auto=format');"></div>
                 <div class="event-content">
                     <h3>Torneio de Duelos Mágicos</h3>
                     <div class="event-date">15 de Outubro, 20:00 BRT</div>
-                    <p>Participe do nosso torneio de magia com sistema de batalha exclusivo. Premiação em pontos e itens raros!</p>
+                    <p>Participe do nosso torneio de magia com sistema de batalha exclusivo. Premiação em pontos e itens raros para os melhores magos!</p>
                 </div>
             </div>
             <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(45deg, var(--secondary), var(--primary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                    Noite de Cosplay
-                </div>
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format');"></div>
                 <div class="event-content">
                     <h3>Noite de Cosplay - Personagens de Anime</h3>
                     <div class="event-date">22 de Outubro, 19:00 BRT</div>
-                    <p>Venha caracterizado como seu personagem de anime favorito e participe de missões temáticas especiais.</p>
+                    <p>Venha caracterizado como seu personagem de anime favorito e participe de missões temáticas especiais com premiação exclusiva.</p>
                 </div>
             </div>
             <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(45deg, var(--accent), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                    One-Shot Especial
-                </div>
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format');"></div>
                 <div class="event-content">
                     <h3>One-Shot: A Maldição do Vale Sombrio</h3>
                     <div class="event-date">29 de Outubro, 18:00 BRT</div>
-                    <p>Sessão única de RPG de terror com premiação especial para os sobreviventes.</p>
+                    <p>Sessão única de RPG de terror com mistérios sobrenaturais. Premiação especial para os sobreviventes da expedição.</p>
                 </div>
             </div>
         </div>
@@ -661,47 +809,77 @@
     <!-- Participar -->
     <section id="join" style="text-align: center;">
         <h2 class="section-title">Junte-se a Nós</h2>
-        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem;">Não perca a oportunidade de fazer parte dessa comunidade incrível. Clique no botão abaixo para entrar no nosso servidor do Discord!</p>
-        <a href="https://discord.gg/7PPvrCy3" class="cta-button" target="_blank" style="font-size: 1.2rem; padding: 15px 30px;">
+        <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">
+            Não perca a oportunidade de fazer parte dessa comunidade incrível. Aqui você encontrará amigos, aventuras épicas e memórias inesquecíveis. 
+            Clique no botão abaixo para entrar no nosso servidor do Discord e começar sua jornada!
+        </p>
+        <a href="https://discord.gg/7PPvrCy3" class="cta-button" target="_blank" style="font-size: 1.3rem; padding: 18px 35px;">
             <i class="fab fa-discord"></i> Entrar no Eternal Cosplay Saga
         </a>
+        
+        <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin-left: auto; margin-right: auto;">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">🎮</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">+500 Membros</h3>
+                <p>Comunidade ativa e crescente</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">⚔️</div>
+                <h3 style="color: var(--primary); margin-bottom: 0.5rem;">+50 Campanhas</h3>
+                <p>Histórias épicas completas</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">🌟</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">24/7 Online</h3>
+                <p>Sempre alguém para jogar</p>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="logo">
-                <div style="width: 60px; height: 60px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border: 2px solid var(--primary);">ECS</div>
+                <img src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=100&h=100&fit=crop&crop=center&auto=format" alt="Eternal Cosplay Saga Logo">
                 <h1>Eternal Cosplay Saga</h1>
             </div>
-            <p>O melhor servidor de RPG de mesa online com integração de cosplay e eventos temáticos!</p>
+            <p style="font-size: 1.2rem; max-width: 600px;">O melhor servidor de RPG de mesa online com integração de cosplay, eventos temáticos e uma comunidade acolhedora!</p>
             <div class="social-links">
-                <a href="https://discord.gg/7PPvrCy3" target="_blank"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="https://discord.gg/7PPvrCy3" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
             <div class="copyright">
-                &copy; 2023 Eternal Cosplay Saga. Todos os direitos reservados.
+                &copy; 2024 Eternal Cosplay Saga. Todos os direitos reservados. | Desenvolvido com 💜 pela comunidade
             </div>
         </div>
     </footer>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                loading.style.opacity = '0';
+                setTimeout(() => loading.remove(), 500);
+            }, 1000);
+        });
+
         // Gerar partículas de fundo
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 100;
+            const particleCount = 150;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Posição aleatória
                 const left = Math.random() * 100;
                 const size = Math.random() * 3 + 1;
-                const opacity = Math.random() * 0.5 + 0.1;
-                const animationDuration = Math.random() * 20 + 10;
+                const opacity = Math.random() * 0.3 + 0.1;
+                const animationDuration = Math.random() * 30 + 15;
+                const color = Math.random() > 0.5 ? var(--primary) : var(--accent);
                 
                 particle.style.left = `${left}%`;
                 particle.style.width = `${size}px`;
@@ -709,6 +887,7 @@
                 particle.style.opacity = opacity;
                 particle.style.animationDuration = `${animationDuration}s`;
                 particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.background = color;
                 
                 particlesContainer.appendChild(particle);
             }
@@ -717,25 +896,26 @@
         // Gerar elementos flutuantes
         function createFloatingElements() {
             const floatingContainer = document.querySelector('.floating-elements');
-            const elements = ['⚔️', '🛡️', '🧙', '🐉', '🔮', '🏹', '⚡', '🔥', '💧', '🌪️'];
-            const elementCount = 15;
+            const elements = ['⚔️', '🛡️', '🧙', '🐉', '🔮', '🏹', '⚡', '🔥', '💧', '🌪️', '✨', '🌟', '💫', '🎭', '🎮'];
+            const elementCount = 20;
             
             for (let i = 0; i < elementCount; i++) {
                 const element = document.createElement('div');
                 element.classList.add('floating-element');
                 
-                // Elemento aleatório
                 const randomElement = elements[Math.floor(Math.random() * elements.length)];
                 element.textContent = randomElement;
                 
-                // Posição e animação aleatórias
                 const left = Math.random() * 100;
-                const animationDuration = Math.random() * 20 + 15;
-                const animationDelay = Math.random() * 10;
+                const animationDuration = Math.random() * 25 + 20;
+                const animationDelay = Math.random() * 15;
+                const fontSize = Math.random() * 2 + 2;
                 
                 element.style.left = `${left}%`;
                 element.style.animationDuration = `${animationDuration}s`;
                 element.style.animationDelay = `${animationDelay}s`;
+                element.style.fontSize = `${fontSize}rem`;
+                element.style.opacity = Math.random() * 0.2 + 0.05;
                 
                 floatingContainer.appendChild(element);
             }
@@ -755,111 +935,22 @@
         }
 
         function rollDice(diceElement, sides, resultElement) {
-            // Animação de rolagem
-            diceElement.classList.add('rolling');
-            resultElement.textContent = "Rolando...";
+            if (diceElement.classList.contains('rolling')) return;
             
-            // Simular rolagem
-            setTimeout(() => {
-                const result = Math.floor(Math.random() * sides) + 1;
-                diceElement.classList.remove('rolling');
-                resultElement.textContent = `Resultado: ${result} (D${sides})`;
-                
-                // Efeito visual baseado no resultado
-                if (result === sides) {
-                    resultElement.style.color = '#4CAF50';
-                    resultElement.innerHTML += ' <span style="color: #4CAF50;">✨ Crítico!</span>';
-                } else if (result === 1) {
-                    resultElement.style.color = '#f44336';
-                    resultElement.innerHTML += ' <span style="color: #f44336;">💥 Falha crítica!</span>';
-                } else {
-                    resultElement.style.color = '#ff6b6b';
-                }
-            }, 1000);
-        }
-
-        // Smooth scroll para links de navegação
-        function setupSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // === EFEITO DE PARTÍCULAS NO MOUSE (ADICIONADO) ===
-        function setupMouseParticles() {
-            document.addEventListener('mousemove', (e) => {
-                createMouseParticles(e.clientX, e.clientY);
-            });
-
-            // Para dispositivos touch
-            document.addEventListener('touchmove', (e) => {
-                const touch = e.touches[0];
-                createMouseParticles(touch.clientX, touch.clientY);
-            });
-
-            function createMouseParticles(x, y) {
-                const particleCount = 3;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('mouse-particle');
-                    
-                    // Tamanho aleatório
-                    const size = Math.random() * 15 + 5;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    
-                    // Cor aleatória usando as cores do tema
-                    const colors = ['#8a2be2', '#4b0082', '#ff6b6b', '#3a86ff', '#8338ec'];
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    particle.style.background = color;
-                    
-                    // Posição
-                    particle.style.left = `${x - size/2}px`;
-                    particle.style.top = `${y - size/2}px`;
-                    
-                    // Direção aleatória
-                    const angle = Math.random() * Math.PI * 2;
-                    const distance = Math.random() * 80 + 40;
-                    const tx = Math.cos(angle) * distance;
-                    const ty = Math.sin(angle) * distance;
-                    
-                    particle.style.setProperty('--tx', `${tx}px`);
-                    particle.style.setProperty('--ty', `${ty}px`);
-                    
-                    document.body.appendChild(particle);
-                    
-                    // Remover após animação
-                    setTimeout(() => {
-                        if (particle.parentNode) {
-                            particle.remove();
-                        }
-                    }, 1000);
-                }
-            }
-        }
-
-        // Inicializar tudo quando o DOM estiver carregado
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            createFloatingElements();
-            setupDice();
-            setupSmoothScroll();
-            setupMouseParticles(); // ← EFEITO NO MOUSE ADICIONADO
-        });
-    </script>
-</body>
-</html>
+            diceElement.classList.add('rolling');
+            resultElement.textContent = "🎲 Rolando...";
+            resultElement.style.color = '#ff6b6b';
+            
+            // Som de dado rolando (simulado)
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.8);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8
