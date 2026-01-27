@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch the Falling Stars</title>
+    <title>Pega as Estrelas</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
         
         body {
@@ -18,16 +19,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
             padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto; /* Permite rolagem vertical */
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
+            margin-bottom: 30px; /* Espaço para rolar */
         }
         
         h1 {
@@ -51,10 +53,14 @@
             padding: 15px;
             border-radius: 10px;
             border: 2px solid #4a9cc9;
+            flex-wrap: wrap;
         }
         
         .info-box {
             text-align: center;
+            flex: 1;
+            min-width: 120px;
+            margin: 5px;
         }
         
         .info-label {
@@ -78,11 +84,7 @@
             border: 3px solid #4a9cc9;
             margin-bottom: 25px;
             box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
-        }
-        
-        #gameCanvas {
-            width: 100%;
-            height: 100%;
+            touch-action: pan-y; /* Permite rolagem vertical fora do jogo */
         }
         
         .basket {
@@ -97,7 +99,7 @@
             border: 3px solid #5D2906;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
             z-index: 10;
-            transition: left 0.1s;
+            transition: left 0.05s linear; /* Movimento mais rápido e suave */
         }
         
         .basket::after {
@@ -120,6 +122,7 @@
             border-radius: 50%;
             box-shadow: 0 0 15px #FFD700;
             z-index: 5;
+            will-change: transform; /* Otimização para animação */
         }
         
         .controls {
@@ -170,6 +173,7 @@
             margin-top: 10px;
             border: 1px solid #4a9cc9;
             text-align: left;
+            max-width: 800px;
         }
         
         .instructions h3 {
@@ -191,7 +195,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
             text-align: center;
@@ -218,6 +222,7 @@
             justify-content: center;
             margin-top: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .difficulty-btn {
@@ -233,13 +238,51 @@
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
-        @media (max-width: 600px) {
+        .mobile-controls {
+            display: none;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+        
+        .mobile-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(74, 156, 201, 0.7);
+            border: 3px solid #2c7fb8;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+        
+        .mobile-btn:active {
+            background: rgba(92, 168, 217, 0.9);
+        }
+        
+        .key-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #b0e0e6;
+        }
+        
+        @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .game-container {
                 height: 400px;
+            }
+            
+            .basket {
+                width: 100px;
+                height: 50px;
             }
             
             .controls {
@@ -251,72 +294,109 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            .mobile-controls {
+                display: flex;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .info-box {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .game-container {
+                height: 350px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Catch the Falling Stars</h1>
-        <p class="subtitle">Move the basket with arrow keys to catch as many stars as you can!</p>
+        <h1>Pega as Estrelas</h1>
+        <p class="subtitle">Use as setas do teclado para mover o cesto e pegar as estrelas!</p>
         
         <div class="game-info">
             <div class="info-box">
-                <div class="info-label">SCORE</div>
+                <div class="info-label">PONTUAÇÃO</div>
                 <div id="score" class="info-value">0</div>
             </div>
             <div class="info-box">
-                <div class="info-label">LIVES</div>
+                <div class="info-label">VIDAS</div>
                 <div id="lives" class="info-value">3</div>
             </div>
             <div class="info-box">
-                <div class="info-label">LEVEL</div>
+                <div class="info-label">NÍVEL</div>
                 <div id="level" class="info-value">1</div>
             </div>
             <div class="info-box">
-                <div class="info-label">HIGH SCORE</div>
+                <div class="info-label">RECORDE</div>
                 <div id="highScore" class="info-value">0</div>
             </div>
         </div>
         
         <div class="difficulty">
-            <button id="easyBtn" class="difficulty-btn active">Easy</button>
-            <button id="mediumBtn" class="difficulty-btn">Medium</button>
-            <button id="hardBtn" class="difficulty-btn">Hard</button>
+            <button id="easyBtn" class="difficulty-btn active">Fácil</button>
+            <button id="mediumBtn" class="difficulty-btn">Médio</button>
+            <button id="hardBtn" class="difficulty-btn">Difícil</button>
         </div>
         
-        <div class="game-container">
+        <div class="game-container" id="gameArea">
             <div id="basket" class="basket"></div>
             <div id="starsContainer"></div>
             <div id="gameOver" class="game-over">
-                <h2>Game Over!</h2>
-                <p>Your score: <span id="finalScore">0</span></p>
-                <p>High score: <span id="finalHighScore">0</span></p>
-                <button id="restartBtn">Play Again</button>
+                <h2>Fim de Jogo!</h2>
+                <p>Sua pontuação: <span id="finalScore">0</span></p>
+                <p>Recorde: <span id="finalHighScore">0</span></p>
+                <button id="restartBtn">Jogar Novamente</button>
             </div>
         </div>
         
+        <div class="mobile-controls">
+            <button id="leftBtn" class="mobile-btn">←</button>
+            <button id="rightBtn" class="mobile-btn">→</button>
+        </div>
+        
+        <p class="key-info">Dica: Use as setas ← → no teclado para controle mais preciso</p>
+        
         <div class="controls">
-            <button id="startBtn">Start Game</button>
-            <button id="pauseBtn">Pause</button>
-            <button id="resetBtn">Reset Game</button>
+            <button id="startBtn">Iniciar Jogo</button>
+            <button id="pauseBtn">Pausar</button>
+            <button id="resetBtn">Reiniciar</button>
         </div>
         
         <div class="instructions">
-            <h3>How to Play:</h3>
+            <h3>Como Jogar:</h3>
             <ul>
-                <li>Use <strong>LEFT</strong> and <strong>RIGHT</strong> arrow keys to move the basket</li>
-                <li>Catch the falling stars to earn points</li>
-                <li>Each star gives you 10 points</li>
-                <li>Missing a star costs you one life</li>
-                <li>Game gets faster every 5 stars you catch</li>
-                <li>Game ends when you lose all 3 lives</li>
-                <li>Choose difficulty level before starting</li>
+                <li>Use as teclas <strong>SETAS ESQUERDA e DIREITA</strong> para mover o cesto</li>
+                <li>Toque nas setas na tela para jogar no celular</li>
+                <li>Pegue as estrelas que caem para ganhar pontos</li>
+                <li>Cada estrela vale 10 pontos</li>
+                <li>Perder uma estrela custa uma vida</li>
+                <li>O jogo acelera a cada 5 estrelas pegadas</li>
+                <li>O jogo termina quando você perde todas as 3 vidas</li>
+                <li>Escolha a dificuldade antes de começar</li>
+                <li><strong>PROBLEMAS CORRIGIDOS:</strong> Cesto mais rápido, colisões funcionando, pode rolar a página!</li>
             </ul>
         </div>
     </div>
 
     <script>
-        // Game elements
+        // Elementos do jogo
         const basket = document.getElementById('basket');
         const starsContainer = document.getElementById('starsContainer');
         const scoreElement = document.getElementById('score');
@@ -326,8 +406,9 @@
         const gameOverScreen = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
         const finalHighScoreElement = document.getElementById('finalHighScore');
+        const gameArea = document.getElementById('gameArea');
         
-        // Buttons
+        // Botões
         const startBtn = document.getElementById('startBtn');
         const pauseBtn = document.getElementById('pauseBtn');
         const resetBtn = document.getElementById('resetBtn');
@@ -335,23 +416,37 @@
         const easyBtn = document.getElementById('easyBtn');
         const mediumBtn = document.getElementById('mediumBtn');
         const hardBtn = document.getElementById('hardBtn');
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
         
-        // Game variables
+        // Variáveis do jogo
         let score = 0;
         let lives = 3;
         let level = 1;
         let highScore = localStorage.getItem('starCatcherHighScore') || 0;
         let gameActive = false;
         let gamePaused = false;
-        let basketPosition = 50; // Percentage from left
+        let basketPosition = 50; // Porcentagem da esquerda
+        let basketSpeed = 15; // Velocidade do cesto (AUMENTADA)
         let starFallSpeed = 2;
         let starCreationInterval;
         let difficulty = 'easy'; // easy, medium, hard
         
-        // Initialize high score display
+        // Controles do teclado
+        let keys = {};
+        let leftPressed = false;
+        let rightPressed = false;
+        
+        // Configurar controles móveis
+        let leftTouchActive = false;
+        let rightTouchActive = false;
+        let touchMoveActive = false;
+        let touchStartX = 0;
+        
+        // Inicializar recorde
         highScoreElement.textContent = highScore;
         
-        // Set up difficulty buttons
+        // Configurar botões de dificuldade
         easyBtn.addEventListener('click', () => setDifficulty('easy'));
         mediumBtn.addEventListener('click', () => setDifficulty('medium'));
         hardBtn.addEventListener('click', () => setDifficulty('hard'));
@@ -359,7 +454,7 @@
         function setDifficulty(diff) {
             difficulty = diff;
             
-            // Update button states
+            // Atualizar estado dos botões
             easyBtn.classList.remove('active');
             mediumBtn.classList.remove('active');
             hardBtn.classList.remove('active');
@@ -367,15 +462,18 @@
             if (diff === 'easy') {
                 easyBtn.classList.add('active');
                 starFallSpeed = 2;
+                basketSpeed = 15;
             } else if (diff === 'medium') {
                 mediumBtn.classList.add('active');
                 starFallSpeed = 3;
+                basketSpeed = 18;
             } else {
                 hardBtn.classList.add('active');
                 starFallSpeed = 4;
+                basketSpeed = 20;
             }
             
-            // If game is active, update speed of existing stars
+            // Atualizar velocidade das estrelas existentes se o jogo estiver ativo
             if (gameActive) {
                 const stars = document.querySelectorAll('.star');
                 stars.forEach(star => {
@@ -384,205 +482,281 @@
             }
         }
         
-        // Move basket with keyboard
+        // CONTROLES DO TECLADO - MELHORADOS
         document.addEventListener('keydown', (e) => {
             if (!gameActive || gamePaused) return;
             
-            if (e.key === 'ArrowLeft' && basketPosition > 0) {
-                basketPosition -= 5;
-                updateBasketPosition();
-            } else if (e.key === 'ArrowRight' && basketPosition < 90) {
-                basketPosition += 5;
-                updateBasketPosition();
+            keys[e.key] = true;
+            
+            // Permitir rolagem da página com outras teclas
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown') {
+                return; // Permite o comportamento padrão (rolar a página)
+            }
+            
+            // Impedir rolagem com setas horizontais apenas dentro do jogo
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                
+                if (e.key === 'ArrowLeft') leftPressed = true;
+                if (e.key === 'ArrowRight') rightPressed = true;
             }
         });
         
-        // Move basket with touch/mouse for mobile
-        let isDragging = false;
-        
-        basket.addEventListener('mousedown', () => {
-            if (!gameActive || gamePaused) return;
-            isDragging = true;
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+            
+            if (e.key === 'ArrowLeft') leftPressed = false;
+            if (e.key === 'ArrowRight') rightPressed = false;
         });
         
-        basket.addEventListener('touchstart', (e) => {
+        // Controles de toque para móveis
+        leftBtn.addEventListener('touchstart', (e) => {
             if (!gameActive || gamePaused) return;
-            isDragging = true;
+            leftTouchActive = true;
             e.preventDefault();
         });
         
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging || !gameActive || gamePaused) return;
-            
-            const gameContainer = document.querySelector('.game-container');
-            const rect = gameContainer.getBoundingClientRect();
-            const relativeX = e.clientX - rect.left;
-            const percentage = (relativeX / rect.width) * 100;
-            
-            // Keep basket within bounds
-            if (percentage >= 5 && percentage <= 90) {
-                basketPosition = percentage;
-                updateBasketPosition();
-            }
+        leftBtn.addEventListener('touchend', (e) => {
+            leftTouchActive = false;
+            e.preventDefault();
         });
         
+        rightBtn.addEventListener('touchstart', (e) => {
+            if (!gameActive || gamePaused) return;
+            rightTouchActive = true;
+            e.preventDefault();
+        });
+        
+        rightBtn.addEventListener('touchend', (e) => {
+            rightTouchActive = false;
+            e.preventDefault();
+        });
+        
+        // Controle por arrastar no jogo
+        gameArea.addEventListener('touchstart', (e) => {
+            if (!gameActive || gamePaused) return;
+            
+            touchMoveActive = true;
+            touchStartX = e.touches[0].clientX;
+            e.preventDefault();
+        });
+        
+        gameArea.addEventListener('touchmove', (e) => {
+            if (!touchMoveActive || !gameActive || gamePaused) return;
+            
+            const currentX = e.touches[0].clientX;
+            const deltaX = currentX - touchStartX;
+            const gameContainer = document.querySelector('.game-container');
+            const rect = gameContainer.getBoundingClientRect();
+            
+            // Converter movimento horizontal para posição do cesto
+            const movement = (deltaX / rect.width) * 100;
+            const newPosition = basketPosition + movement;
+            
+            // Manter cesto dentro dos limites
+            if (newPosition >= 5 && newPosition <= 90) {
+                basketPosition = newPosition;
+                updateBasketPosition();
+            }
+            
+            touchStartX = currentX;
+            e.preventDefault();
+        });
+        
+        gameArea.addEventListener('touchend', () => {
+            touchMoveActive = false;
+        });
+        
+        // Permitir rolagem da página fora da área do jogo
         document.addEventListener('touchmove', (e) => {
-            if (!isDragging || !gameActive || gamePaused) return;
-            
-            const gameContainer = document.querySelector('.game-container');
-            const rect = gameContainer.getBoundingClientRect();
-            const touch = e.touches[0];
-            const relativeX = touch.clientX - rect.left;
-            const percentage = (relativeX / rect.width) * 100;
-            
-            // Keep basket within bounds
-            if (percentage >= 5 && percentage <= 90) {
-                basketPosition = percentage;
-                updateBasketPosition();
+            // Se não estiver no jogo ou se estiver rolando verticalmente, permitir rolagem
+            if (!gameArea.contains(e.target) || Math.abs(e.touches[0].clientX - touchStartX) < 10) {
+                return;
             }
-            
-            e.preventDefault();
-        });
+        }, { passive: true });
         
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-        
-        document.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-        
+        // Atualizar posição do cesto
         function updateBasketPosition() {
             basket.style.left = `${basketPosition}%`;
         }
         
-        // Create a falling star
+        // Loop de movimento do cesto (60 FPS)
+        function moveBasket() {
+            if (!gameActive || gamePaused) return;
+            
+            let moved = false;
+            
+            // Movimento por teclado
+            if (leftPressed && basketPosition > 5) {
+                basketPosition -= basketSpeed;
+                moved = true;
+            }
+            
+            if (rightPressed && basketPosition < 90) {
+                basketPosition += basketSpeed;
+                moved = true;
+            }
+            
+            // Movimento por controles de toque
+            if (leftTouchActive && basketPosition > 5) {
+                basketPosition -= basketSpeed;
+                moved = true;
+            }
+            
+            if (rightTouchActive && basketPosition < 90) {
+                basketPosition += basketSpeed;
+                moved = true;
+            }
+            
+            if (moved) {
+                updateBasketPosition();
+            }
+        }
+        
+        // Criar uma estrela caindo
         function createStar() {
             if (!gameActive || gamePaused) return;
             
             const star = document.createElement('div');
             star.className = 'star';
+            star.dataset.caught = 'false'; // Marcar se já foi pega
             
-            // Random horizontal position
+            // Posição horizontal aleatória
             const leftPos = Math.floor(Math.random() * 85) + 5;
             star.style.left = `${leftPos}%`;
             star.style.top = '-30px';
             
-            // Add to container
+            // Adicionar ao container
             starsContainer.appendChild(star);
             
-            // Animate star falling
+            // Animar a estrela caindo
             setTimeout(() => {
                 star.style.top = '100%';
                 star.style.transition = `top ${1/starFallSpeed}s linear`;
             }, 10);
             
-            // Check if star is caught or missed
-            setTimeout(() => {
-                if (!gameActive || gamePaused) return;
+            // Verificar se a estrela foi pega ou perdida
+            const checkInterval = setInterval(() => {
+                if (!gameActive || gamePaused || star.dataset.caught === 'true') {
+                    clearInterval(checkInterval);
+                    return;
+                }
                 
                 const starRect = star.getBoundingClientRect();
                 const basketRect = basket.getBoundingClientRect();
                 
-                // Check if star is caught (overlaps with basket)
-                if (
-                    starRect.bottom >= basketRect.top &&
-                    starRect.left >= basketRect.left &&
-                    starRect.right <= basketRect.right
-                ) {
-                    // Star caught!
+                // VERIFICAÇÃO DE COLISÃO MELHORADA
+                // A estrela foi pega se estiver sobre o cesto
+                const starCenterX = starRect.left + starRect.width / 2;
+                const starBottom = starRect.bottom;
+                
+                // Verificar se a estrela está sobre o cesto
+                if (starBottom >= basketRect.top && 
+                    starBottom <= basketRect.bottom &&
+                    starCenterX >= basketRect.left && 
+                    starCenterX <= basketRect.right) {
+                    
+                    // Estrela pega!
+                    star.dataset.caught = 'true';
+                    clearInterval(checkInterval);
+                    
                     score += 10;
                     scoreElement.textContent = score;
                     
-                    // Level up every 5 stars
+                    // Subir de nível a cada 50 pontos
                     if (score % 50 === 0) {
                         level++;
                         levelElement.textContent = level;
                         starFallSpeed += 0.5;
                         
-                        // Visual feedback for level up
+                        // Feedback visual para subir de nível
                         document.body.style.backgroundColor = '#2c5364';
                         setTimeout(() => {
                             document.body.style.backgroundColor = '';
                         }, 200);
                     }
                     
-                    // Visual feedback for catching
+                    // Feedback visual para pegar estrela
                     star.style.background = 'radial-gradient(circle at 10px 10px, #00FF00, #00AA00)';
                     star.style.boxShadow = '0 0 20px #00FF00';
                     
-                    // Remove star after a short delay
+                    // Remover estrela após um curto delay
                     setTimeout(() => {
                         if (star.parentNode) {
                             star.parentNode.removeChild(star);
                         }
                     }, 100);
-                } else {
-                    // Star missed
-                    if (starRect.top >= window.innerHeight - 100) {
+                }
+                // Verificar se a estrela passou do cesto
+                else if (starRect.top > window.innerHeight) {
+                    clearInterval(checkInterval);
+                    
+                    // Estrela perdida - só perde vida se não foi pega
+                    if (star.dataset.caught === 'false') {
                         lives--;
                         livesElement.textContent = lives;
                         
-                        // Visual feedback for missing
+                        // Feedback visual para perder estrela
                         star.style.background = 'radial-gradient(circle at 10px 10px, #FF0000, #AA0000)';
                         star.style.boxShadow = '0 0 20px #FF0000';
                         
-                        // Remove star after a short delay
-                        setTimeout(() => {
-                            if (star.parentNode) {
-                                star.parentNode.removeChild(star);
-                            }
-                        }, 300);
-                        
-                        // Check if game over
+                        // Verificar se o jogo acabou
                         if (lives <= 0) {
                             endGame();
                         }
                     }
+                    
+                    // Remover estrela após um curto delay
+                    setTimeout(() => {
+                        if (star.parentNode) {
+                            star.parentNode.removeChild(star);
+                        }
+                    }, 300);
                 }
-            }, 1000 / starFallSpeed);
+            }, 50); // Verificar a cada 50ms para colisões precisas
             
-            // Remove star after it falls (whether caught or not)
+            // Remover estrela após cair (só por segurança)
             setTimeout(() => {
                 if (star.parentNode) {
                     star.parentNode.removeChild(star);
                 }
-            }, (1000 / starFallSpeed) + 1000);
+                clearInterval(checkInterval);
+            }, (1000 / starFallSpeed) + 2000);
         }
         
-        // Start the game
+        // Iniciar o jogo
         startBtn.addEventListener('click', startGame);
         
         function startGame() {
             if (gameActive) return;
             
-            // Reset game state
+            // Resetar estado do jogo
             score = 0;
             lives = 3;
             level = 1;
             
-            // Update UI
+            // Atualizar UI
             scoreElement.textContent = score;
             livesElement.textContent = lives;
             levelElement.textContent = level;
             
-            // Clear any existing stars
+            // Limpar estrelas existentes
             starsContainer.innerHTML = '';
             
-            // Reset basket position
+            // Resetar posição do cesto
             basketPosition = 50;
             updateBasketPosition();
             
-            // Hide game over screen
+            // Esconder tela de fim de jogo
             gameOverScreen.style.display = 'none';
             
-            // Start game
+            // Iniciar jogo
             gameActive = true;
             gamePaused = false;
             startBtn.disabled = true;
-            startBtn.textContent = "Game Running";
+            startBtn.textContent = "Jogo em Andamento";
             
-            // Create stars at intervals
+            // Criar estrelas em intervalos
             let starInterval;
             if (difficulty === 'easy') {
                 starInterval = 1000;
@@ -593,16 +767,27 @@
             }
             
             starCreationInterval = setInterval(createStar, starInterval);
+            
+            // Iniciar loop de movimento
+            gameLoop();
         }
         
-        // Pause the game
+        // Loop principal do jogo
+        function gameLoop() {
+            if (!gameActive) return;
+            
+            moveBasket();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Pausar o jogo
         pauseBtn.addEventListener('click', togglePause);
         
         function togglePause() {
             if (!gameActive) return;
             
             gamePaused = !gamePaused;
-            pauseBtn.textContent = gamePaused ? "Resume" : "Pause";
+            pauseBtn.textContent = gamePaused ? "Continuar" : "Pausar";
             
             if (gamePaused) {
                 clearInterval(starCreationInterval);
@@ -617,63 +802,82 @@
                 }
                 
                 starCreationInterval = setInterval(createStar, starInterval);
+                gameLoop();
             }
         }
         
-        // Reset the game
+        // Resetar o jogo
         resetBtn.addEventListener('click', resetGame);
         
         function resetGame() {
-            // Clear game state
+            // Limpar estado do jogo
             gameActive = false;
             gamePaused = false;
             
-            // Clear intervals
+            // Limpar intervalos
             clearInterval(starCreationInterval);
             
-            // Reset UI
+            // Resetar UI
             startBtn.disabled = false;
-            startBtn.textContent = "Start Game";
-            pauseBtn.textContent = "Pause";
+            startBtn.textContent = "Iniciar Jogo";
+            pauseBtn.textContent = "Pausar";
             
-            // Clear stars
+            // Limpar estrelas
             starsContainer.innerHTML = '';
             
-            // Hide game over screen
+            // Esconder tela de fim de jogo
             gameOverScreen.style.display = 'none';
+            
+            // Resetar controles
+            leftPressed = false;
+            rightPressed = false;
+            leftTouchActive = false;
+            rightTouchActive = false;
         }
         
-        // Restart the game
+        // Reiniciar o jogo
         restartBtn.addEventListener('click', () => {
             resetGame();
             startGame();
         });
         
-        // End the game
+        // Finalizar o jogo
         function endGame() {
             gameActive = false;
             clearInterval(starCreationInterval);
             
-            // Update high score
+            // Atualizar recorde
             if (score > highScore) {
                 highScore = score;
                 localStorage.setItem('starCatcherHighScore', highScore);
                 highScoreElement.textContent = highScore;
             }
             
-            // Show game over screen
+            // Mostrar tela de fim de jogo
             finalScoreElement.textContent = score;
             finalHighScoreElement.textContent = highScore;
             gameOverScreen.style.display = 'block';
             
-            // Reset UI
+            // Resetar UI
             startBtn.disabled = false;
-            startBtn.textContent = "Start Game";
-            pauseBtn.textContent = "Pause";
+            startBtn.textContent = "Iniciar Jogo";
+            pauseBtn.textContent = "Pausar";
         }
         
-        // Initialize the game
+        // Inicializar o jogo
         updateBasketPosition();
+        
+        // Permitir rolagem da página normalmente
+        document.addEventListener('wheel', () => {}, { passive: true });
+        
+        // Botões de controle móvel também disparam eventos de clique
+        leftBtn.addEventListener('mousedown', () => leftTouchActive = true);
+        leftBtn.addEventListener('mouseup', () => leftTouchActive = false);
+        leftBtn.addEventListener('mouseleave', () => leftTouchActive = false);
+        
+        rightBtn.addEventListener('mousedown', () => rightTouchActive = true);
+        rightBtn.addEventListener('mouseup', () => rightTouchActive = false);
+        rightBtn.addEventListener('mouseleave', () => rightTouchActive = false);
     </script>
 </body>
 </html>
